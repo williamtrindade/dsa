@@ -1,5 +1,59 @@
 # DSA
 
+# Number-Theoretic Algorithms
+
+## Euclidean Algorithm (MDC / GCD) & Least Common Multiple (MMC / LCM)
+
+### Core Concept
+
+The **Greatest Common Divisor (GCD/MDC)** of two integers is the largest positive integer that divides both numbers without a remainder. The Euclidean algorithm efficiently calculates this by repeatedly replacing the larger number by its remainder when divided by the smaller number until the remainder is zero.
+
+The **Least Common Multiple (LCM/MMC)** is the smallest positive integer that is divisible by both numbers. It is calculated elegantly using the mathematical relationship: `LCM(a, b) = |a * b| / GCD(a, b)`.
+
+### When to Use
+
+- **Fraction simplification:** When you need to reduce fractions to their simplest form.
+- **Repeating patterns:** Determining when two cyclic events will synchronize (LCM) or finding the largest common block size to divide two lengths (GCD).
+- **Number Theory problems:** Foundational for many algorithmic challenges (like the `gcdOfStrings` problem) and cryptography.
+
+### Complexity
+
+- **Time:** O(log(min(a, b))) — The modulo operation drastically reduces the size of the numbers in each step, making the execution time logarithmic.
+- **Space:** O(log(min(a, b))) — For the recursive call stack. This can be optimized to O(1) se implementado iterativamente (using a while loop).
+
+### Properties
+
+- **Category:** Math / Number Theory.
+- **In-place:** N/A (Math operation).
+- **Prerequisite:** LCM depends directly on an efficient GCD implementation.
+
+### Java Implementation
+
+```java
+public class MathAlgorithms {
+
+    // Greatest Common Divisor (MDC) - Euclidean Algorithm
+    public static int gcd(int a, int b) {
+        if (b == 0) {
+            return a;
+        }
+        return gcd(b, a % b);
+    }
+
+    // Least Common Multiple (MMC)
+    public static int lcm(int a, int b) {
+        // Prevent division by zero if inputs are zero
+        if (a == 0 || b == 0) {
+            return 0;
+        }
+        // Formula: (a * b) / GCD(a, b)
+        return Math.abs(a * b) / gcd(a, b);
+    }
+}
+```
+
+---
+
 # Algorithmic Patterns
 
 ## Prefix Sum
@@ -46,6 +100,64 @@ public class PrefixSum {
     // Returns the sum of elements from index 'left' to 'right' inclusive
     public int rangeSum(int left, int right) {
         return prefix[right + 1] - prefix[left];
+    }
+}
+```
+
+---
+
+# **Searching Algorithms**
+
+## Binary Search
+
+![a-visual-guide-to-binary-search-v0-7khf6vd42ojd1.gif](DSA/a-visual-guide-to-binary-search-v0-7khf6vd42ojd1.gif)
+
+### Core Concept
+
+Binary Search is an efficient algorithm for finding an item from a sorted list of items. It works by repeatedly dividing in half the portion of the list that could contain the item, comparing the middle element to the target value. 
+
+This divide-and-conquer approach transforms an O(N) linear scan into extremely fast O(log N) lookups.
+
+### When to Use
+
+- **Sorted arrays:** The primary requirement is that the underlying dataset must be sorted.
+- **Fast lookups:** When you need to quickly locate an element, especially in large datasets where O(N) is too slow.
+- **Finding boundaries (Monotonicity):** Useful for finding the first or last occurrence of an element, or finding the point where a condition changes from false to true (e.g., finding the "first bad version" in a system).
+- **Rotated arrays:** Can be adapted to search in sorted arrays that have been shifted/rotated.
+
+### Complexity
+
+- **Time (Search):** O(log N) — The search space is reduced by half at each step.
+- **Space:** O(1) — The iterative implementation uses only a few primitive pointers (`i`, `j`, `mid`), requiring constant extra space.
+
+### Properties
+
+- **Category:** Search Algorithm / Divide and Conquer.
+- **In-place:** Yes (evaluates the original array without requiring copies).
+- **Adaptable:** Yes (Can be expanded for boundary finding, searching in 2D matrices, or binary search on answers/ranges).
+
+### Java Implementation
+
+```java
+class Solution {
+    public int search(int[] nums, int target) {
+        int i = 0;
+        int j = nums.length - 1;
+
+        while (i <= j) {
+            // Previne Integer Overflow: i + (j - i) / 2 em vez de (i + j) / 2
+            int mid = i + (j - i) / 2;
+            int midVal = nums[mid];
+
+            if (midVal == target) return mid;
+
+            if (target > midVal) {
+                i = mid + 1;
+            } else {
+                j = mid - 1;
+            }
+        }
+        return -1;
     }
 }
 ```
@@ -198,7 +310,7 @@ The tree is traversed starting from the root. The new value is compared against 
 - **Space (Iterative):** O(1) - Traversal and insertion are done strictly in-place using pointers.
 - **Space (Recursive):** O(H) - Where H is the height of the tree, representing the memory consumed by the call stack.
 
-## Properties
+### Properties
 
 - **In-place:** Yes (Only requires memory allocation for the single new node).
 - **Adaptive:** No (The standard insertion does not self-balance. Variations like AVL or Red-Black trees are needed for adaptability).
@@ -206,7 +318,7 @@ The tree is traversed starting from the root. The new value is compared against 
 
 ### Java Implementation
 
-### Iterative Version (O(1) Space)
+#### Iterative Version (O(1) Space)
 
 ```java
 public Node insertIterative(Node root, int data) {
@@ -264,19 +376,19 @@ public Node insertRecursive(Node root, int data) {
 **Core Concept**
 The height of a binary tree is defined as the number of edges on the longest path from the root node to a leaf. This algorithm applies a Depth-First Search (DFS) using a **Post-order** traversal strategy. It recursively explores both the left and right subtrees until it reaches the leaves. As the recursive calls return (backtracking), it compares the heights of the left and right subtrees, takes the maximum, and adds 1 to account for the edge connecting the current node to its deepest child. The base case (`root.left == null && root.right == null`) correctly establishes that a tree with only one node (the root) has a height of 0 (counting edges, not nodes).
 
-**When to Use**
+### **When to Use**
 
 - **Balancing Checks:** Essential for implementing and maintaining self-balancing trees (like AVL trees), where the height difference between left and right subtrees must be monitored.
 - **Performance/Memory Estimation:** Useful to determine the maximum call stack depth (which is strictly tied to the tree's height) required for other recursive tree operations.
 - **Tree Metrics:** Whenever you need to know the longest path or maximum depth in a hierarchical structure.
 
-**Complexity**
+### **Complexity**
 
 - **Time:** O(N) - Every single node in the tree must be visited exactly once to guarantee the deepest path is found.
 - **Space (Worst):** O(N) - Occurs in a completely unbalanced tree (degraded into a linear linked list), where the recursive call stack reaches N frames.
 - **Space (Average/Best):** O(H) or O(log N) - In a balanced tree, the maximum depth of the recursive call stack is limited to the tree's height (H).
 
-**Properties**
+### **Properties**
 
 - **Traversal Method:** Post-order DFS (It requires the results from the left and right children before it can calculate the value for the parent).
 - **Measurement Convention:** Edge-based counting (A single node equals height 0).
@@ -302,24 +414,25 @@ This document covers the fundamental traversal algorithms for Binary Trees, desi
 
 ## Depth-First Search (DFS)
 
-![Depth-First-Search.gif](DSA/Depth-First-Search.gif)
+![0_4S4oZrK41Xo4HVxz.gif](DSA/0_4S4oZrK41Xo4HVxz.gif)
 
-**Core Concept**
+### **Core Concept**
+
 DFS explores a tree by going as deep as possible along each branch before backtracking. It can be implemented in three main ways: In-order (Left, Root, Right), Pre-order (Root, Left, Right), and Post-order (Left, Right, Root).
 
-**When to Use**
+### **When to Use**
 
 - **In-order:** Best for retrieving elements of a Binary Search Tree (BST) in sorted (ascending) order.
 - **Pre-order:** Ideal for creating a copy/clone of the tree or serializing its structure.
 - **Post-order:** Useful for safely deleting the tree (children are processed before the parent) or calculating directory sizes.
 
-**Complexity**
+### **Complexity**
 
 - **Time (All variations):** O(N) - Every node is visited exactly once.
 - **Space (Worst):** O(N) - Occurs in completely unbalanced trees (linear structure) due to call stack memory.
 - **Space (Average/Best):** O(H) - Where H is the tree height, typically O(log N) for balanced trees.
 
-**Properties**
+### **Properties**
 
 - **Memory-efficient for deep, narrow trees:** Yes (Compared to BFS).
 - **Implementation:** Typically recursive, mirroring the natural inductive definition of trees.
@@ -340,23 +453,24 @@ public void traverseInOrder(Node root) {
 
 ## Breadth-First Search (BFS)
 
-![Breadth-First-Search-Algorithm.gif](DSA/Breadth-First-Search-Algorithm.gif)
+![0_HN6Tr71sgf1qR70n.gif](DSA/0_HN6Tr71sgf1qR70n.gif)
 
-**Core Concept**
+### **Core Concept**
+
 BFS explores the tree level by level, starting from the root and moving horizontally left-to-right across each depth level before moving down to the next level.
 
-**When to Use**
+### **When to Use**
 
 - **Shortest Path:** Ideal for finding the shortest path between the root and a target node in unweighted graphs or trees.
 - **Level Processing:** Useful when you need to process nodes in relation to their depth.
 
-**Complexity**
+### **Complexity**
 
 - **Time:** O(N) - Every node is visited exactly once.
 - **Space (Worst):** O(N) - Occurs in a perfectly balanced tree where the bottom level holds roughly N/2 nodes, requiring proportional queue size.
 - **Space (Best):** O(1) - Occurs in completely unbalanced (linear) trees where the maximum width is 1.
 
-**Properties**
+### **Properties**
 
 - **Memory-efficient for wide trees:** No (Requires storing entire levels simultaneously).
 - **Implementation:** Iterative, utilizing a First-In-First-Out (FIFO) queue data structure.
@@ -427,7 +541,7 @@ A Heap is a specialized tree-based data structure that satisfies the heap proper
 
 ### Java Implementation
 
-**1. Built-in Min/Max-Heap (using `java.util.PriorityQueue`)**
+#### **1. Built-in Min/Max-Heap (using `java.util.PriorityQueue`)**
 
 The most practical way to use a Heap in Java in a day-to-day scenario is through the standard library. By default, `PriorityQueue` implements a Min-Heap.
 
@@ -458,7 +572,7 @@ public class HeapExample {
 }
 ```
 
-**2. Manual Min-Heap (Array Representation)**
+#### **2. Manual Min-Heap (Array Representation)**
 
 For educational purposes, this is how a Min-Heap is mathematically mapped to a flat array under the hood.
 
@@ -525,6 +639,119 @@ public class MinHeap {
             swap(i, smallest);
             minHeapify(smallest);
         }
+    }
+}
+```
+
+---
+
+# Data Structure - Cache
+
+## LRU Cache
+
+![lru.png](DSA/lru.png)
+
+### Core Concept
+
+The Least Recently Used (LRU) Cache is a data structure that stores a limited number of items. When the cache reaches its capacity, it evicts the least recently accessed item before inserting a new one. It is typically implemented using a combination of a Hash Map (for O(1) lookups) and a Doubly Linked List (for O(1) insertions, deletions, and updates to the order of elements).
+
+### When to Use
+
+- **Caching mechanisms:** When you need fast data retrieval for frequently accessed items but have limited memory (e.g., application-level caching, database query caching).
+- **Memory management:** Useful for page replacement algorithms in operating systems.
+- **Web browsers:** Used to store recently visited pages or downloaded assets for fast retrieval.
+
+### Complexity
+
+- **Time (Get):** O(1) — The Hash Map provides constant-time access directly to the node in the Doubly Linked List.
+- **Time (Put):** O(1) — Adding a new node or moving an existing node to the front of the list takes constant time, as does updating the Hash Map.
+- **Space:** O(capacity) — Both the Hash Map and the Doubly Linked List store up to `capacity` elements.
+
+### Properties
+
+- **Eviction Policy:** Least Recently Used (Discards the oldest untouched item first).
+- **Capacity Limit:** Yes (Maintains a strict maximum size constraint).
+- **Composite Structure:** Requires both a Hash Map and a Doubly Linked List to achieve O(1) performance for all core operations.
+
+### Java Implementation
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+class LRUCache {
+
+    class Node {
+        int key;
+        int value;
+        Node prev;
+        Node next;
+
+        public Node(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+
+    private final int capacity;
+    private final Map<Integer, Node> cache;
+    private final Node head;
+    private final Node tail;
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        this.cache = new HashMap<>();
+
+        // Dummy head and tail to avoid null-check edge cases during node manipulation
+        this.head = new Node(-1, -1);
+        this.tail = new Node(-1, -1);
+        this.head.next = this.tail;
+        this.tail.prev = this.head;
+    }
+
+    public int get(int key) {
+        if (!cache.containsKey(key)) {
+            return -1;
+        }
+
+        Node node = cache.get(key);
+        removeNode(node);
+        moveToHead(node);
+
+        return node.value;
+    }
+
+    public void put(int key, int value) {
+        if (cache.containsKey(key)) {
+            Node node = cache.get(key);
+            node.value = value;
+            removeNode(node);
+            moveToHead(node);
+        } else {
+            if (cache.size() >= capacity) {
+                Node lru = tail.prev;
+                cache.remove(lru.key);
+                removeNode(lru);
+            }
+
+            Node newNode = new Node(key, value);
+            cache.put(key, newNode);
+            moveToHead(newNode);
+        }
+    }
+
+    // Helper method to remove a node from the doubly linked list
+    private void removeNode(Node node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+
+    // Helper method to insert a node right after the dummy head
+    private void moveToHead(Node node) {
+        node.next = head.next;
+        node.prev = head;
+        head.next.prev = node;
+        head.next = node;
     }
 }
 ```
