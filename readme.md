@@ -1,5 +1,373 @@
 # DSA
 
+---
+
+# Algorithmic Paradigms (High-level / Strategic)
+
+## Greedy Algorithm
+
+### Core Concept
+
+A **Greedy Algorithm** builds up a solution piece by piece, always choosing the next piece that offers the most obvious and immediate benefit. It makes a locally optimal choice at each stage with the hope that these local choices will lead to a globally optimal solution. Once a choice is made, it is never reconsidered (no backtracking).
+
+### When to Use
+
+- **Optimization Problems:** When you need to find the maximum or minimum of something (e.g., shortest path, minimum spanning tree).
+- **Greedy Choice Property:** When a globally optimal solution can be arrived at by selecting a local optimum at every step.
+- **Optimal Substructure:** When an optimal solution to the problem contains optimal solutions to the sub-problems.
+- **Common Applications:** Dijkstra's Shortest Path, Huffman Coding, Activity Selection, Fractional Knapsack, Coin Change (for standard denominations), and specific array/interval problems (e.g., Jump Game, Merge Intervals).
+
+### Complexity
+
+- **Time:** Usually **O(N log N)** because greedy problems often require sorting the dataset first before making choices. If the dataset is already sorted, it can be **O(N)**.
+- **Space:** Often **O(1)** auxiliary space (if no extra structures are needed), though sorting algorithms might require **O(log N)** or **O(N)** space depending on the language's internal implementation.
+
+### Properties
+
+- **Category:** Algorithmic Paradigm.
+- **In-place:** Usually yes (evaluates data iteratively without huge allocations).
+- **Pros:** Simpler to conceptualize and generally faster than Dynamic Programming.
+- **Cons:** Does not guarantee a globally optimal solution for *every* problem type (e.g., it fails on the 0/1 Knapsack problem where Dynamic Programming is required).
+
+### Java Implementation (Activity Selection Problem)
+
+```java
+import java.util.Arrays;
+import java.util.Comparator;
+
+public class GreedyAlgorithm {
+
+    /**
+     * Example: Activity Selection Problem
+     * Given start and end times of activities, find the maximum number of activities
+     * that can be performed by a single person (they cannot overlap).
+     */
+    public static int maxActivities(int[][] activities) {
+        if (activities == null || activities.length == 0) return 0;
+
+        // Step 1: Sort activities based on their end times (the Greedy Choice)
+        // This ensures we leave as much time as possible for remaining activities.
+        Arrays.sort(activities, Comparator.comparingInt(a -> a[1]));
+
+        int count = 1; // We always select the first activity after sorting
+        int lastEndTime = activities[0][1];
+
+        // Step 2: Iterate and pick the next compatible activity
+        for (int i = 1; i < activities.length; i++) {
+            int currentStartTime = activities[i][0];
+
+            // If the activity starts after or when the last one finished, we can do it!
+            if (currentStartTime >= lastEndTime) {
+                count++;
+                lastEndTime = activities[i][1];
+            }
+        }
+
+        return count;
+    }
+}
+```
+
+### Java Implementation 2: Greedy Without Sorting (Jump Game)
+
+Sometimes, a greedy algorithm doesn't require sorting the data first. Instead, it iterates through the dataset making local optimal choices on the fly, typically achieving **O(N)** time complexity.
+
+```java
+public class GreedyWithoutSorting {
+
+    /**
+     * Example: Jump Game (LeetCode 55)
+     * Given an integer array nums. You are initially positioned at the array's first index,
+     * and each element in the array represents your maximum jump length at that position.
+     * Return true if you can reach the last index, or false otherwise.
+     */
+    public static boolean canJump(int[] nums) {
+        int reachable = 0; // The furthest index we can currently reach
+
+        for (int i = 0; i < nums.length; i++) {
+            // If the current index is strictly greater than our maximum reachable index,
+            // it means we are stuck and cannot move forward.
+            if (i > reachable) {
+                return false;
+            }
+
+            // Greedy choice: Update the furthest we can reach from this point
+            reachable = Math.max(reachable, i + nums[i]);
+
+            // Early exit: If we can already reach the end, no need to keep checking
+            if (reachable >= nums.length - 1) {
+                return true;
+            }
+        }
+
+        return true;
+    }
+}
+```
+
+---
+
+## Dynamic Programming (DP)
+
+### Overview
+
+Dynamic Programming (DP) is an algorithmic technique for solving optimization problems by breaking them down into simpler subproblems. It utilizes the fact that the optimal solution to the overall problem depends upon the optimal solutions to its subproblems.
+
+### Key Concepts
+
+1. **Overlapping Subproblems:** The problem can be broken down into subproblems which are reused several times. DP caches these results to avoid redundant computations.
+2. **Optimal Substructure:** The optimal solution to a problem can be constructed from the optimal solutions of its subproblems.
+
+### Approaches
+
+#### 1. Top-Down (Memoization)
+
+- **How it works:** You start solving the given problem by breaking it down. If you see that the problem has been solved already, then just return the saved answer. If it has not been solved, solve it and save the answer.
+- **Implementation:** Usually implemented using recursion and a hash map or array to store results.
+
+#### 2. Bottom-Up (Tabulation)
+
+- **How it works:** You analyze the problem and see the order in which the subproblems are solved. You start by solving the lowest level subproblem and then iterate to the top.
+- **Implementation:** Usually implemented using iteration (loops) and an array or table to store results.
+
+---
+
+### Example 1: Fibonacci Sequence
+
+#### Top-Down (Memoization)
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+public class Fibonacci {
+    private Map<Integer, Integer> memo = new HashMap<>();
+
+    public int fib(int n) {
+        if (n <= 1) return n;
+
+        // Check if we have already solved this subproblem
+        if (memo.containsKey(n)) {
+            return memo.get(n);
+        }
+
+        // Solve and store the result
+        int result = fib(n - 1) + fib(n - 2);
+        memo.put(n, result);
+
+        return result;
+    }
+}
+```
+
+**Complexity:** Time `O(N)`, Space `O(N)` (for the recursion stack and memo dictionary).
+
+### Bottom-Up (Tabulation)
+
+```java
+public class Fibonacci {
+    public int fib(int n) {
+        if (n <= 1) return n;
+
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        dp[1] = 1;
+
+        for (int i = 2; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+
+        return dp[n];
+    }
+
+    // Space-optimized Bottom-Up
+    public int fibOptimized(int n) {
+        if (n <= 1) return n;
+
+        int prev2 = 0;
+        int prev1 = 1;
+
+        for (int i = 2; i <= n; i++) {
+            int current = prev1 + prev2;
+            prev2 = prev1;
+            prev1 = current;
+        }
+
+        return prev1;
+    }
+}
+```
+
+**Complexity:** Time `O(N)`, Space `O(1)` (for the optimized version).
+
+---
+
+### Example 2: Coin Change (Classic Interview Problem)
+
+**Problem:** Given an integer array `coins` representing coins of different denominations and an integer `amount` representing a total amount of money, return the fewest number of coins that you need to make up that amount.
+
+#### Bottom-Up Solution
+
+```java
+import java.util.Arrays;
+
+public class CoinChange {
+    public int coinChange(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        // Initialize the array with a value greater than any possible answer
+        Arrays.fill(dp, amount + 1);
+        dp[0] = 0;
+
+        for (int i = 1; i <= amount; i++) {
+            for (int coin : coins) {
+                if (i - coin >= 0) {
+                    dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+                }
+            }
+        }
+
+        return dp[amount] > amount ? -1 : dp[amount];
+    }
+}
+```
+
+**Complexity:** Time `O(amount * coins.length)`, Space `O(amount)`.
+
+---
+
+## State Machine Pattern (Dynamic Programming)
+
+### Overview
+
+The State Machine pattern is a powerful variation of Dynamic Programming used when the transitions between subproblems depend on specific "states" or conditions. Instead of a single DP array, we maintain multiple states and define transition equations (edges) between them.
+
+This pattern is incredibly useful for sequence or array problems with multiple constraints and conditional logic. It transforms messy `if-else` recursive checks into a clean, modular set of mathematical transitions.
+
+### Key Concepts
+
+1. **States (Nodes):** Represent the current condition or status at step `i` (e.g., holding a stock, resting, in cooldown).
+2. **Transitions (Edges):** The actions taken to move from one state to another (e.g., Buy, Sell, Rest).
+
+---
+
+### Example: Best Time to Buy and Sell Stock with Cooldown (LeetCode 309)
+
+**Problem:** Find the maximum profit you can achieve. You may complete as many transactions as you like, but after you sell your stock, you cannot buy stock on the next day (i.e., mandatory 1-day cooldown).
+
+#### State Definitions
+
+Instead of trying to track the cooldown with booleans or jumping indices, we define three discrete states for any given day `i`:
+
+- `held`: We currently hold a stock.
+- `sold`: We just sold a stock today (this forces us into a cooldown tomorrow).
+- `rest`: We do not hold a stock, and we are not in the mandatory cooldown phase. We can either keep resting or choose to buy.
+
+#### State Transitions (The "Edges")
+
+- `held[i] = max(held[i-1], rest[i-1] - price)`*(Keep holding what we already had, OR buy a new stock transitioning from the rest state)*
+- `sold[i] = held[i-1] + price`*(Sell the stock we were holding yesterday)*
+- `rest[i] = max(rest[i-1], sold[i-1])`*(Keep resting, OR enter the rest state after finishing a cooldown from yesterday's sale)*
+
+#### Space-Optimized Implementation (Bottom-Up)
+
+Since day `i` only depends on day `i-1`, we do not need to allocate full `O(N)` arrays. We can just keep track of the previous day's variables, reducing the space complexity to `O(1)`.
+
+```java
+public class StockWithCooldown {
+    public int maxProfit(int[] prices) {
+        if (prices == null || prices.length == 0) {
+            return 0;
+        }
+
+        // Initial states for day 0
+        int held = -prices[0]; // Bought on day 0
+        int sold = Integer.MIN_VALUE; // Impossible to sell on day 0
+        int rest = 0; // Did nothing on day 0
+
+        for (int i = 1; i < prices.length; i++) {
+            int prevHeld = held;
+            int prevSold = sold;
+            int prevRest = rest;
+
+            // Calculate current day's maximum profit for each state
+            held = Math.max(prevHeld, prevRest - prices[i]);
+            sold = prevHeld + prices[i];
+            rest = Math.max(prevRest, prevSold);
+        }
+
+        // The maximum possible profit will either be in the 'sold' state or 'rest' state.
+        // We would never end the sequence in the 'held' state optimally.
+        return Math.max(sold, rest);
+    }
+}
+```
+
+**Complexity:** Time `O(N)`, Space `O(1)`.
+
+---
+
+### Application to Other Advanced DP Problems
+
+Once you grasp the State Machine pattern, many Hard-level problems become heavily simplified:
+
+- **Stock III & IV (At most `k` transactions):** You expand the states to a 2D array like `held[k]` and `unheld[k]` to track the number of transactions remaining.
+- **Stock with Transaction Fee:** The exact same logic as basic Buy and Sell, but you subtract the `fee` parameter specifically during the transition from `held` to `unheld`.
+- **Regular Expression Matching / Parsing:** States represent the current character matched.
+
+---
+
+# Algorithmic Patterns (Mid-level / Structural)
+
+## Prefix Sum
+
+![1755392233916.png](DSA/1755392233916.png)
+
+### Core Concept
+
+Prefix Sum involves creating an auxiliary array where the value at each index `i` is the sum of all elements from the start of the original array up to that index. This allows for extremely fast calculations of contiguous subarray sums by transforming O(N) range sum loops into O(1) mathematical operations.
+
+### When to Use
+
+- **Frequent range queries:** When you need to calculate the sum of elements in a specific range `[left, right]` multiple times.
+- **Subarray conditions:** Finding subarrays that meet certain sum criteria (e.g., "subarray sum equals k", as in your previous problem), especially when combined with a Hash Map.
+- **Static data:** Highly efficient when the underlying array is not continuously modified. (Note: if elements change frequently, a Segment Tree or Fenwick Tree is more appropriate).
+
+### Complexity
+
+- **Time (Precomputation):** O(N) — Requires a single pass through the array to build the prefix sums.
+- **Time (Query):** O(1) — Any range sum can be calculated in constant time.
+- **Space:** O(N) — Typically requires an additional array of size N+1 to store the sums safely, though it can be O(1) if modifying the input array in-place.
+
+### Properties
+
+- **Category:** Precomputation / Array Pattern.
+- **In-place:** Optional (Can overwrite the original array, but an auxiliary array is usually used to preserve original data).
+- **Adaptable:** Yes (Can be expanded to 2D matrices for 2D range sum queries).
+
+### Java Implementation
+
+```java
+public class PrefixSum {
+    private int[] prefix;
+
+    // Precomputes the prefix sums
+    public PrefixSum(int[] arr) {
+        // Using size + 1 handles the edge case of querying from index 0 elegantly
+        prefix = new int[arr.length + 1];
+        for (int i = 0; i < arr.length; i++) {
+            prefix[i + 1] = prefix[i] + arr[i];
+        }
+    }
+
+    // Returns the sum of elements from index 'left' to 'right' inclusive
+    public int rangeSum(int left, int right) {
+        return prefix[right + 1] - prefix[left];
+    }
+}
+```
+
+---
+
 # Number-Theoretic Algorithms
 
 ## Euclidean Algorithm (MDC / GCD) & Least Common Multiple (MMC / LCM)
@@ -48,58 +416,6 @@ public class MathAlgorithms {
         }
         // Formula: (a * b) / GCD(a, b)
         return Math.abs(a * b) / gcd(a, b);
-    }
-}
-```
-
----
-
-# Algorithmic Patterns
-
-## Prefix Sum
-
-![1755392233916.png](DSA/1755392233916.png)
-
-### Core Concept
-
-Prefix Sum involves creating an auxiliary array where the value at each index `i` is the sum of all elements from the start of the original array up to that index. This allows for extremely fast calculations of contiguous subarray sums by transforming O(N) range sum loops into O(1) mathematical operations.
-
-### When to Use
-
-- **Frequent range queries:** When you need to calculate the sum of elements in a specific range `[left, right]` multiple times.
-- **Subarray conditions:** Finding subarrays that meet certain sum criteria (e.g., "subarray sum equals k", as in your previous problem), especially when combined with a Hash Map.
-- **Static data:** Highly efficient when the underlying array is not continuously modified. (Note: if elements change frequently, a Segment Tree or Fenwick Tree is more appropriate).
-
-### Complexity
-
-- **Time (Precomputation):** O(N) — Requires a single pass through the array to build the prefix sums.
-- **Time (Query):** O(1) — Any range sum can be calculated in constant time.
-- **Space:** O(N) — Typically requires an additional array of size N+1 to store the sums safely, though it can be O(1) if modifying the input array in-place.
-
-### Properties
-
-- **Category:** Precomputation / Array Pattern.
-- **In-place:** Optional (Can overwrite the original array, but an auxiliary array is usually used to preserve original data).
-- **Adaptable:** Yes (Can be expanded to 2D matrices for 2D range sum queries).
-
-### Java Implementation
-
-```java
-public class PrefixSum {
-    private int[] prefix;
-
-    // Precomputes the prefix sums
-    public PrefixSum(int[] arr) {
-        // Using size + 1 handles the edge case of querying from index 0 elegantly
-        prefix = new int[arr.length + 1];
-        for (int i = 0; i < arr.length; i++) {
-            prefix[i + 1] = prefix[i] + arr[i];
-        }
-    }
-
-    // Returns the sum of elements from index 'left' to 'right' inclusive
-    public int rangeSum(int left, int right) {
-        return prefix[right + 1] - prefix[left];
     }
 }
 ```
@@ -639,6 +955,113 @@ public class MinHeap {
             swap(i, smallest);
             minHeapify(smallest);
         }
+    }
+}
+```
+
+---
+
+# Data Struture - Trie
+
+![trie_example.png](DSA/trie_example.png)
+
+### Core Concept
+
+The Trie (Prefix Tree) is traversed starting from the root. For string operations, each character of the string dictates the path to the next child node. If a child node for a specific character does not exist, a new node is instantiated. This traversal continues character by character until the entire string is processed. Once the final character is placed, that specific node is marked with a boolean flag to signify the end of a valid word, preserving the overlapping prefixes of all inserted strings.
+
+### When to Use
+
+**Prefix Matching:** Best for autocomplete features, search typeahead, or finding all IP routing prefixes. It natively supports finding strings that share a common stem.
+**Dictionary Validation:** Ideal for spell checkers and word games (e.g., Boggle, Word Search) where fast prefix validation is needed to prune invalid search paths during DFS/Backtracking.
+**Deterministic Search:** Use when you must avoid the unpredictable $O(N)$ worst-case time complexity of Hash Tables caused by hash collisions. In a Trie, the worst-case search time is guaranteed.
+
+### Complexity
+
+**Time (Insert / Search / StartsWith):** $O(L)$ - Where $L$ is the length of the string. The time is strictly bounded by the word length, halving the search space character by character, regardless of how many total words are in the Trie.
+**Space (Overall Structure):** $O(N \times L \times K)$ - Where $N$ is the number of words, $L$ is the average length, and $K$ is the alphabet size (e.g., 26).
+**Space (Operations):** $O(1)$ - Iterative traversal for insertion and searching is done strictly in-place using pointers.
+
+### Properties
+
+**In-place:** No (Requires memory allocation for new nodes corresponding to characters not already present in the path).
+**Adaptive:** No (Standard Tries do not compress paths. Variations like Radix Trees or Patricia Tries are needed for memory adaptability and compression).
+**Ordered:** Yes (A pre-order traversal of the Trie will yield the stored strings in strict lexicographical/alphabetical order).
+
+### Java Standard Library Equivalent (java.util)
+
+Java **does not** provide a built-in `Trie` class in the `java.util` package. If you must use standard `java.util` collections for prefix-based operations, the closest alternatives are:
+
+- **`java.util.TreeSet<String>` / `java.util.TreeMap`:** Backed by a Red-Black Tree. You can use methods like `subSet(prefix, prefix + Character.MAX_VALUE)` or `ceiling()` to find words starting with a specific prefix.
+    - *Trade-off:* Search complexity degrades to $O(L \log N)$ instead of $O(L)$.
+- **`java.util.HashSet<String>`:** Used for exact match lookups in $O(1)$ time, but it cannot perform prefix searches (`startsWith`).
+
+### Java Implementation
+
+**Iterative Version ($O(1)$ Space for Operations)**
+
+```java
+class TrieNode {
+    TrieNode[] children;
+    boolean isEndOfWord;
+
+    public TrieNode() {
+        // Assuming lowercase English letters only
+        children = new TrieNode[26];
+        isEndOfWord = false;
+    }
+}
+
+class Trie {
+    private TrieNode root;
+
+    public Trie() {
+        root = new TrieNode();
+    }
+
+    public void insert(String word) {
+        TrieNode current = root;
+
+        for (int i = 0; i < word.length(); i++) {
+            char ch = word.charAt(i);
+            int index = ch - 'a';
+
+            if (current.children[index] == null) {
+                current.children[index] = new TrieNode();
+            }
+            current = current.children[index];
+        }
+        // Mark the end of the newly inserted word
+        current.isEndOfWord = true;
+    }
+
+    public boolean search(String word) {
+        TrieNode current = root;
+
+        for (int i = 0; i < word.length(); i++) {
+            char ch = word.charAt(i);
+            int index = ch - 'a';
+
+            if (current.children[index] == null) {
+                return false;
+            }
+            current = current.children[index];
+        }
+        return current.isEndOfWord;
+    }
+
+    public boolean startsWith(String prefix) {
+        TrieNode current = root;
+
+        for (int i = 0; i < prefix.length(); i++) {
+            char ch = prefix.charAt(i);
+            int index = ch - 'a';
+
+            if (current.children[index] == null) {
+                return false;
+            }
+            current = current.children[index];
+        }
+        return true;
     }
 }
 ```
