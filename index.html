@@ -1,0 +1,1360 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>DSA</title><meta name="data-notion-page-icon" content="/icons/subtask_blue.svg"/><link rel="icon" href="https://app.notion.com/icons/subtask_blue.svg"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3b155e6f-f0fc-800c-8de3-e0265f22369c" class="page sans" data-notion-page-icon="/icons/subtask_blue.svg"><header><div class="page-header-icon undefined"><img class="icon notion-static-icon" src="https://app.notion.com/icons/subtask_blue.svg"/></div><h1 class="page-title" dir="auto">DSA</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><hr id="3cd55e6f-f0fc-8071-8857-cd8127d0ea70" dir="auto"/><h1 id="3d055e6f-f0fc-801d-a3b0-ef48fea1dda6" class="block-color-orange" data-notion-highlight="orange" dir="auto"><mark class="highlight-yellow" data-notion-highlight="yellow">Algorithmic Paradigms (High-level / Strategic)</mark></h1><h2 id="3d055e6f-f0fc-80c2-ab64-d7139264a0ee" class="block-color-blue" data-notion-highlight="blue" dir="auto">Greedy Algorithm</h2><h3 id="3d055e6f-f0fc-802c-9c88-f0b5ac0ae228" class="" dir="auto">Core Concept</h3><p id="3d055e6f-f0fc-808c-a0e6-ff16e6c080f3" class="" dir="auto">A <strong>Greedy Algorithm</strong> builds up a solution piece by piece, always choosing the next piece that offers the most obvious and immediate benefit. It makes a locally optimal choice at each stage with the hope that these local choices will lead to a globally optimal solution. Once a choice is made, it is never reconsidered (no backtracking).</p><h3 id="3d055e6f-f0fc-806e-b535-c24c688015c2" class="" dir="auto">When to Use</h3><ul id="3d055e6f-f0fc-80c6-94f9-c5cf58d86952" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Optimization Problems:</strong> When you need to find the maximum or minimum of something (e.g., shortest path, minimum spanning tree).</li></ul><ul id="3d055e6f-f0fc-8082-983b-db5dd61f94ac" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Greedy Choice Property:</strong> When a globally optimal solution can be arrived at by selecting a local optimum at every step.</li></ul><ul id="3d055e6f-f0fc-80fc-a5cf-fc8367e91687" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Optimal Substructure:</strong> When an optimal solution to the problem contains optimal solutions to the sub-problems.</li></ul><ul id="3d055e6f-f0fc-80e0-b5d2-c1902690b1dd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Common Applications:</strong> Dijkstra&#x27;s Shortest Path, Huffman Coding, Activity Selection, Fractional Knapsack, Coin Change (for standard denominations), and specific array/interval problems (e.g., Jump Game, Merge Intervals).</li></ul><h3 id="3d055e6f-f0fc-80b3-b07b-fd2924d6ceeb" class="" dir="auto">Complexity</h3><ul id="3d055e6f-f0fc-808b-b913-d3f8c488d7fe" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Time:</strong> Usually <strong>O(N log N)</strong> because greedy problems often require sorting the dataset first before making choices. If the dataset is already sorted, it can be <strong>O(N)</strong>.</li></ul><ul id="3d055e6f-f0fc-8038-94c0-fc4fdfa8baf0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Space:</strong> Often <strong>O(1)</strong> auxiliary space (if no extra structures are needed), though sorting algorithms might require <strong>O(log N)</strong> or <strong>O(N)</strong> space depending on the language&#x27;s internal implementation.</li></ul><h3 id="3d055e6f-f0fc-800b-b195-e7c03f87d901" class="" dir="auto">Properties</h3><ul id="3d055e6f-f0fc-80dd-a519-f8beb87bc926" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Category:</strong> Algorithmic Paradigm.</li></ul><ul id="3d055e6f-f0fc-807c-85e6-c3ab97fa9205" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>In-place:</strong> Usually yes (evaluates data iteratively without huge allocations).</li></ul><ul id="3d055e6f-f0fc-8076-9f09-c53f477cc8be" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Pros:</strong> Simpler to conceptualize and generally faster than Dynamic Programming.</li></ul><ul id="3d055e6f-f0fc-8024-9b3f-d999a93e8da7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cons:</strong> Does not guarantee a globally optimal solution for <em>every</em> problem type (e.g., it fails on the 0/1 Knapsack problem where Dynamic Programming is required).</li></ul><h3 id="3d055e6f-f0fc-80b0-8d46-c3794c79e58e" class="" dir="auto">Java Implementation (Activity Selection Problem)</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js" integrity="sha512-xKcnbsdT0KMoA4yrozkqZM1XJVTrPsjdQwvigxlAlxEDu8YDvC/jl+LfVqn0fY3Vs6m2y4a89JCHEIA/Z9zpmQ==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><pre id="3d055e6f-f0fc-800f-8055-e2e7294b2c14" class="code code-wrap" data-notion-code-syntax="java"><code class="language-java" style="white-space:pre-wrap;word-break:break-all">import java.util.Arrays;
+import java.util.Comparator;
+
+public class GreedyAlgorithm {
+
+    /**
+     * Example: Activity Selection Problem
+     * Given start and end times of activities, find the maximum number of activities
+     * that can be performed by a single person (they cannot overlap).
+     */
+    public static int maxActivities(int[][] activities) {
+        if (activities == null || activities.length == 0) return 0;
+
+        // Step 1: Sort activities based on their end times (the Greedy Choice)
+        // This ensures we leave as much time as possible for remaining activities.
+        Arrays.sort(activities, Comparator.comparingInt(a -&gt; a[1]));
+
+        int count = 1; // We always select the first activity after sorting
+        int lastEndTime = activities[0][1];
+
+        // Step 2: Iterate and pick the next compatible activity
+        for (int i = 1; i &lt; activities.length; i++) {
+            int currentStartTime = activities[i][0];
+
+            // If the activity starts after or when the last one finished, we can do it!
+            if (currentStartTime &gt;= lastEndTime) {
+                count++;
+                lastEndTime = activities[i][1];
+            }
+        }
+
+        return count;
+    }
+}</code></pre><h3 id="3d055e6f-f0fc-80f5-82f6-e3da1c5e5701" class="" dir="auto">Java Implementation 2: Greedy Without Sorting (Jump Game)</h3><p id="3d055e6f-f0fc-80f1-b15c-ca56afc101fd" class="" dir="auto">Sometimes, a greedy algorithm doesn&#x27;t require sorting the data first. Instead, it iterates through the dataset making local optimal choices on the fly, typically achieving <strong>O(N)</strong> time complexity.</p><pre id="3d055e6f-f0fc-80e4-a26a-cbb6a2ca6c63" class="code code-wrap" data-notion-code-syntax="java"><code class="language-java" style="white-space:pre-wrap;word-break:break-all">public class GreedyWithoutSorting {
+
+    /**
+     * Example: Jump Game (LeetCode 55)
+     * Given an integer array nums. You are initially positioned at the array&#x27;s first index,
+     * and each element in the array represents your maximum jump length at that position.
+     * Return true if you can reach the last index, or false otherwise.
+     */
+    public static boolean canJump(int[] nums) {
+        int reachable = 0; // The furthest index we can currently reach
+
+        for (int i = 0; i &lt; nums.length; i++) {
+            // If the current index is strictly greater than our maximum reachable index,
+            // it means we are stuck and cannot move forward.
+            if (i &gt; reachable) {
+                return false;
+            }
+
+            // Greedy choice: Update the furthest we can reach from this point
+            reachable = Math.max(reachable, i + nums[i]);
+
+            // Early exit: If we can already reach the end, no need to keep checking
+            if (reachable &gt;= nums.length - 1) {
+                return true;
+            }
+        }
+
+        return true;
+    }
+}</code></pre><hr id="3d155e6f-f0fc-8049-bb19-cd1d134e0a20" dir="auto"/><h2 id="3d155e6f-f0fc-802c-8c8a-ccddda2694aa" class="" dir="auto"><mark class="highlight-blue" data-notion-highlight="blue">Dynamic Programming (DP)</mark></h2><h3 id="3d155e6f-f0fc-80b9-a077-cdcd20289816" class="" dir="auto">Overview</h3><p id="3d155e6f-f0fc-80d4-bdd9-f960e869ed79" class="" dir="auto">Dynamic Programming (DP) is an algorithmic technique for solving optimization problems by breaking them down into simpler subproblems. It utilizes the fact that the optimal solution to the overall problem depends upon the optimal solutions to its subproblems.</p><h3 id="3d155e6f-f0fc-80e6-82f4-c888f3b0afc2" class="" dir="auto">Key Concepts</h3><ol type="1" id="3d155e6f-f0fc-8025-b07f-edaf65ce1081" class="numbered-list" start="1" dir="auto"><li><strong>Overlapping Subproblems:</strong> The problem can be broken down into subproblems which are reused several times. DP caches these results to avoid redundant computations.</li></ol><ol type="1" id="3d155e6f-f0fc-8009-8771-de90bba3d8d4" class="numbered-list" start="2" dir="auto"><li><strong>Optimal Substructure:</strong> The optimal solution to a problem can be constructed from the optimal solutions of its subproblems.</li></ol><h3 id="3d155e6f-f0fc-800e-938a-c1018fb5d6f1" class="" dir="auto">Approaches</h3><h4 id="3d155e6f-f0fc-8097-bf06-e4e68905bd60" class="" dir="auto">1. Top-Down (Memoization)</h4><ul id="3d155e6f-f0fc-8003-abc1-fd94acb311a6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>How it works:</strong> You start solving the given problem by breaking it down. If you see that the problem has been solved already, then just return the saved answer. If it has not been solved, solve it and save the answer.</li></ul><ul id="3d155e6f-f0fc-80a2-bf4f-d8272ca6b623" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Implementation:</strong> Usually implemented using recursion and a hash map or array to store results.</li></ul><h4 id="3d155e6f-f0fc-80a4-a4fd-cdaa5dcdc6d7" class="" dir="auto">2. Bottom-Up (Tabulation)</h4><ul id="3d155e6f-f0fc-8087-82d6-f4a2f4d62211" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>How it works:</strong> You analyze the problem and see the order in which the subproblems are solved. You start by solving the lowest level subproblem and then iterate to the top.</li></ul><ul id="3d155e6f-f0fc-80f4-a9b1-fe4c06caaa85" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Implementation:</strong> Usually implemented using iteration (loops) and an array or table to store results.</li></ul><hr id="3d155e6f-f0fc-80a9-9b29-fd74e914ae3e" dir="auto"/><h3 id="3d155e6f-f0fc-8009-a7e1-e1411066889e" class="" dir="auto">Example 1: Fibonacci Sequence</h3><h4 id="3d155e6f-f0fc-8091-b296-ed5977d68ced" class="" dir="auto">Top-Down (Memoization)</h4><pre id="3d155e6f-f0fc-8093-9e2c-c4394501b34d" class="code code-wrap" data-notion-code-syntax="java"><code class="language-java" style="white-space:pre-wrap;word-break:break-all">import java.util.HashMap;
+import java.util.Map;
+
+public class Fibonacci {
+    private Map&lt;Integer, Integer&gt; memo = new HashMap&lt;&gt;();
+
+    public int fib(int n) {
+        if (n &lt;= 1) return n;
+
+        // Check if we have already solved this subproblem
+        if (memo.containsKey(n)) {
+            return memo.get(n);
+        }
+
+        // Solve and store the result
+        int result = fib(n - 1) + fib(n - 2);
+        memo.put(n, result);
+
+        return result;
+    }
+}</code></pre><p id="3d155e6f-f0fc-80b6-841c-c2ec375b6fc0" class="" dir="auto"><strong>Complexity:</strong> Time <code>O(N)</code>, Space <code>O(N)</code> (for the recursion stack and memo dictionary).</p><h3 id="3d155e6f-f0fc-80f5-9077-eb2618be8ac6" class="" dir="auto">Bottom-Up (Tabulation)</h3><pre id="3d155e6f-f0fc-80d3-91f2-ec0550982bf1" class="code code-wrap" data-notion-code-syntax="java"><code class="language-java" style="white-space:pre-wrap;word-break:break-all">public class Fibonacci {
+    public int fib(int n) {
+        if (n &lt;= 1) return n;
+
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        dp[1] = 1;
+
+        for (int i = 2; i &lt;= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+
+        return dp[n];
+    }
+
+    // Space-optimized Bottom-Up
+    public int fibOptimized(int n) {
+        if (n &lt;= 1) return n;
+
+        int prev2 = 0;
+        int prev1 = 1;
+
+        for (int i = 2; i &lt;= n; i++) {
+            int current = prev1 + prev2;
+            prev2 = prev1;
+            prev1 = current;
+        }
+
+        return prev1;
+    }
+}</code></pre><p id="3d155e6f-f0fc-80ac-a102-e92299e3e7a9" class="" dir="auto"><strong>Complexity:</strong> Time <code>O(N)</code>, Space <code>O(1)</code> (for the optimized version).</p><hr id="3d155e6f-f0fc-801f-8474-e290d4094c32" dir="auto"/><h3 id="3d155e6f-f0fc-8025-80e7-f899413724a3" class="" dir="auto">Example 2: Coin Change (Classic Interview Problem)</h3><p id="3d155e6f-f0fc-80b6-9d68-d4f6a467865a" class="" dir="auto"><strong>Problem:</strong> Given an integer array <code>coins</code> representing coins of different denominations and an integer <code>amount</code> representing a total amount of money, return the fewest number of coins that you need to make up that amount.</p><h4 id="3d155e6f-f0fc-8043-a477-d6d2bb359a30" class="" dir="auto">Bottom-Up Solution</h4><pre id="3d155e6f-f0fc-80ef-8b38-f39a23cd9ff6" class="code code-wrap" data-notion-code-syntax="java"><code class="language-java" style="white-space:pre-wrap;word-break:break-all">import java.util.Arrays;
+
+public class CoinChange {
+    public int coinChange(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        // Initialize the array with a value greater than any possible answer
+        Arrays.fill(dp, amount + 1);
+        dp[0] = 0;
+
+        for (int i = 1; i &lt;= amount; i++) {
+            for (int coin : coins) {
+                if (i - coin &gt;= 0) {
+                    dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+                }
+            }
+        }
+
+        return dp[amount] &gt; amount ? -1 : dp[amount];
+    }
+}</code></pre><p id="3d155e6f-f0fc-8064-bccb-d2f4e78c5968" class="" dir="auto"><strong>Complexity:</strong> Time <code>O(amount * coins.length)</code>, Space <code>O(amount)</code>.</p><hr id="3d155e6f-f0fc-8001-91e1-ea429d222b69" dir="auto"/><h2 id="3d155e6f-f0fc-80c3-9607-dc9a2fe2e3a4" class="" dir="auto"><mark class="highlight-blue" data-notion-highlight="blue">State Machine Pattern (Dynamic Programming)</mark></h2><h3 id="3d155e6f-f0fc-803e-8326-df1193879dec" class="" dir="auto">Overview</h3><p id="3d155e6f-f0fc-805a-87d7-fe33eff42111" class="" dir="auto">The State Machine pattern is a powerful variation of Dynamic Programming used when the transitions between subproblems depend on specific &quot;states&quot; or conditions. Instead of a single DP array, we maintain multiple states and define transition equations (edges) between them.</p><p id="3d155e6f-f0fc-808c-b96c-fa8b07ac891b" class="" dir="auto">This pattern is incredibly useful for sequence or array problems with multiple constraints and conditional logic. It transforms messy <code>if-else</code> recursive checks into a clean, modular set of mathematical transitions.</p><h3 id="3d155e6f-f0fc-80b8-89f4-de71dbdfaf0f" class="" dir="auto">Key Concepts</h3><ol type="1" id="3d155e6f-f0fc-8087-842c-db55dcc8aee1" class="numbered-list" start="1" dir="auto"><li><strong>States (Nodes):</strong> Represent the current condition or status at step <code>i</code> (e.g., holding a stock, resting, in cooldown).</li></ol><ol type="1" id="3d155e6f-f0fc-80e1-ba3d-d0ddb43dc7b0" class="numbered-list" start="2" dir="auto"><li><strong>Transitions (Edges):</strong> The actions taken to move from one state to another (e.g., Buy, Sell, Rest).</li></ol><hr id="3d155e6f-f0fc-8025-ba5a-d64ac80115fe" dir="auto"/><h3 id="3d155e6f-f0fc-800e-9092-c78341ecf948" class="" dir="auto">Example: Best Time to Buy and Sell Stock with Cooldown (LeetCode 309)</h3><p id="3d155e6f-f0fc-80c1-9651-f7e241de671d" class="" dir="auto"><strong>Problem:</strong> Find the maximum profit you can achieve. You may complete as many transactions as you like, but after you sell your stock, you cannot buy stock on the next day (i.e., mandatory 1-day cooldown).</p><h4 id="3d155e6f-f0fc-8020-aa9e-e3e42672f436" class="" dir="auto">State Definitions</h4><p id="3d155e6f-f0fc-8040-bc1f-d5bba3f5b5b6" class="" dir="auto">Instead of trying to track the cooldown with booleans or jumping indices, we define three discrete states for any given day <code>i</code>:</p><ul id="3d155e6f-f0fc-8086-9e99-fc8237532218" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>held</code>: We currently hold a stock.</li></ul><ul id="3d155e6f-f0fc-801d-8b51-f4d1560e9ee9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>sold</code>: We just sold a stock today (this forces us into a cooldown tomorrow).</li></ul><ul id="3d155e6f-f0fc-8057-a8e3-df60d4079144" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>rest</code>: We do not hold a stock, and we are not in the mandatory cooldown phase. We can either keep resting or choose to buy.</li></ul><h4 id="3d155e6f-f0fc-80df-874e-d57637147afc" class="" dir="auto">State Transitions (The &quot;Edges&quot;)</h4><ul id="3d155e6f-f0fc-806d-9f42-c4c3bb5a42c7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>held[i] = max(held[i-1], rest[i-1] - price)</code><em>(Keep holding what we already had, OR buy a new stock transitioning from the rest state)</em></li></ul><ul id="3d155e6f-f0fc-80da-9905-e53e76297046" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>sold[i] = held[i-1] + price</code><em>(Sell the stock we were holding yesterday)</em></li></ul><ul id="3d155e6f-f0fc-8082-8c07-e7563637da8f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>rest[i] = max(rest[i-1], sold[i-1])</code><em>(Keep resting, OR enter the rest state after finishing a cooldown from yesterday&#x27;s sale)</em></li></ul><h4 id="3d155e6f-f0fc-804a-abb3-e465ae0850d8" class="" dir="auto">Space-Optimized Implementation (Bottom-Up)</h4><p id="3d155e6f-f0fc-803f-a7c4-ce5545d4dabd" class="" dir="auto">Since day <code>i</code> only depends on day <code>i-1</code>, we do not need to allocate full <code>O(N)</code> arrays. We can just keep track of the previous day&#x27;s variables, reducing the space complexity to <code>O(1)</code>.</p><pre id="3d155e6f-f0fc-80b3-9c1d-f7c883433b98" class="code code-wrap" data-notion-code-syntax="java"><code class="language-java" style="white-space:pre-wrap;word-break:break-all">public class StockWithCooldown {
+    public int maxProfit(int[] prices) {
+        if (prices == null || prices.length == 0) {
+            return 0;
+        }
+
+        // Initial states for day 0
+        int held = -prices[0]; // Bought on day 0
+        int sold = Integer.MIN_VALUE; // Impossible to sell on day 0
+        int rest = 0; // Did nothing on day 0
+
+        for (int i = 1; i &lt; prices.length; i++) {
+            int prevHeld = held;
+            int prevSold = sold;
+            int prevRest = rest;
+
+            // Calculate current day&#x27;s maximum profit for each state
+            held = Math.max(prevHeld, prevRest - prices[i]);
+            sold = prevHeld + prices[i];
+            rest = Math.max(prevRest, prevSold);
+        }
+
+        // The maximum possible profit will either be in the &#x27;sold&#x27; state or &#x27;rest&#x27; state.
+        // We would never end the sequence in the &#x27;held&#x27; state optimally.
+        return Math.max(sold, rest);
+    }
+}</code></pre><p id="3d155e6f-f0fc-8032-9a11-cdc31d7a40c8" class="" dir="auto"><strong>Complexity:</strong> Time <code>O(N)</code>, Space <code>O(1)</code>.</p><hr id="3d155e6f-f0fc-8018-9721-e38acfaceb79" dir="auto"/><h3 id="3d155e6f-f0fc-80dc-8bc7-c9e2a4449965" class="" dir="auto">Application to Other Advanced DP Problems</h3><p id="3d155e6f-f0fc-8082-89ee-da7a41cf957a" class="" dir="auto">Once you grasp the State Machine pattern, many Hard-level problems become heavily simplified:</p><ul id="3d155e6f-f0fc-80b1-81eb-f82ee1216559" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Stock III &amp; IV (At most </strong><code><strong>k</strong></code><strong> transactions):</strong> You expand the states to a 2D array like <code>held[k]</code> and <code>unheld[k]</code> to track the number of transactions remaining.</li></ul><ul id="3d155e6f-f0fc-807f-aad9-f34f533452a4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Stock with Transaction Fee:</strong> The exact same logic as basic Buy and Sell, but you subtract the <code>fee</code> parameter specifically during the transition from <code>held</code> to <code>unheld</code>.</li></ul><ul id="3d155e6f-f0fc-80e4-9e95-ee743c63b347" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Regular Expression Matching / Parsing:</strong> States represent the current character matched.</li></ul><hr id="3d155e6f-f0fc-8067-9a1d-ecdcf75d09aa" dir="auto"/><h1 id="3bc55e6f-f0fc-8054-93f7-e110084bc3f7" class="block-color-yellow" data-notion-highlight="yellow" dir="auto">Algorithmic Patterns (Mid-level / Structural)</h1><h2 id="3bc55e6f-f0fc-802a-acb3-d181c6842ac5" class="" dir="auto"><mark class="highlight-blue" data-notion-highlight="blue">Prefix Sum</mark></h2><figure id="3bc55e6f-f0fc-80c9-95ef-e159ee944f64" class="image" style="text-align:left" data-notion-image="DSA/1755392233916.png" dir="ltr"><a href="DSA/1755392233916.png"><img style="width:384px" src="DSA/1755392233916.png"/></a></figure><h3 id="3bc55e6f-f0fc-807d-bc58-dac89d8e9f62" class="" dir="auto">Core Concept</h3><p id="3bc55e6f-f0fc-80af-832f-f5ea982dd0c1" class="" dir="auto">Prefix Sum involves creating an auxiliary array where the value at each index <code>i</code> is the sum of all elements from the start of the original array up to that index. This allows for extremely fast calculations of contiguous subarray sums by transforming O(N) range sum loops into O(1) mathematical operations.</p><h3 id="3bc55e6f-f0fc-8024-bee5-f80de2d13ce1" class="" dir="auto">When to Use</h3><ul id="3bc55e6f-f0fc-80ed-b815-d4e55f571e39" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Frequent range queries:</strong> When you need to calculate the sum of elements in a specific range <code>[left, right]</code> multiple times.</li></ul><ul id="3bc55e6f-f0fc-80fd-9283-df00b204aead" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Subarray conditions:</strong> Finding subarrays that meet certain sum criteria (e.g., &quot;subarray sum equals k&quot;, as in your previous problem), especially when combined with a Hash Map.</li></ul><ul id="3bc55e6f-f0fc-8091-a2e9-c7d757d69238" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Static data:</strong> Highly efficient when the underlying array is not continuously modified. (Note: if elements change frequently, a Segment Tree or Fenwick Tree is more appropriate).</li></ul><h3 id="3bc55e6f-f0fc-80e3-8da5-d44979f0e388" class="" dir="auto">Complexity</h3><ul id="3bc55e6f-f0fc-80c9-a808-fc407c3233f3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Time (Precomputation):</strong> O(N) — Requires a single pass through the array to build the prefix sums.</li></ul><ul id="3bc55e6f-f0fc-8026-9aea-f0fa6797e849" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Time (Query):</strong> O(1) — Any range sum can be calculated in constant time.</li></ul><ul id="3bc55e6f-f0fc-80c8-9e81-c6c9988aed3f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Space:</strong> O(N) — Typically requires an additional array of size N+1 to store the sums safely, though it can be O(1) if modifying the input array in-place.</li></ul><h3 id="3bc55e6f-f0fc-8057-840e-d8c5b9f613ce" class="" dir="auto">Properties</h3><ul id="3bc55e6f-f0fc-80bd-aa20-d05be815485b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Category:</strong> Precomputation / Array Pattern.</li></ul><ul id="3bc55e6f-f0fc-8026-81a4-c39d67664653" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>In-place:</strong> Optional (Can overwrite the original array, but an auxiliary array is usually used to preserve original data).</li></ul><ul id="3bc55e6f-f0fc-80cb-8fb7-cd455bc2a847" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Adaptable:</strong> Yes (Can be expanded to 2D matrices for 2D range sum queries).</li></ul><h3 id="3bc55e6f-f0fc-8021-bb7b-d5dd2b316fcc" class="" dir="auto">Java Implementation</h3><pre id="3bc55e6f-f0fc-808a-8d73-ee7cd6923fd6" class="code code-wrap" data-notion-code-syntax="java"><code class="language-java" style="white-space:pre-wrap;word-break:break-all">public class PrefixSum {
+    private int[] prefix;
+
+    // Precomputes the prefix sums
+    public PrefixSum(int[] arr) {
+        // Using size + 1 handles the edge case of querying from index 0 elegantly
+        prefix = new int[arr.length + 1];
+        for (int i = 0; i &lt; arr.length; i++) {
+            prefix[i + 1] = prefix[i] + arr[i];
+        }
+    }
+
+    // Returns the sum of elements from index &#x27;left&#x27; to &#x27;right&#x27; inclusive
+    public int rangeSum(int left, int right) {
+        return prefix[right + 1] - prefix[left];
+    }
+}</code></pre><hr id="3bc55e6f-f0fc-8032-9d88-dd1fc0404ffc" dir="auto"/><h1 id="3bf55e6f-f0fc-80f9-b0ca-db53bcaf2f97" class="block-color-yellow" data-notion-highlight="yellow" dir="auto">Number-Theoretic Algorithms</h1><h2 id="3bf55e6f-f0fc-80fe-a73b-ffda271d31b7" class="block-color-blue" data-notion-highlight="blue" dir="auto">Euclidean Algorithm (MDC / GCD) &amp; Least Common Multiple (MMC / LCM)</h2><h3 id="3bf55e6f-f0fc-80f6-9d83-d0e7c7715281" class="" dir="auto">Core Concept</h3><p id="3bf55e6f-f0fc-802a-aa8a-ca0b20f3ed5f" class="" dir="auto">The <strong>Greatest Common Divisor (GCD/MDC)</strong> of two integers is the largest positive integer that divides both numbers without a remainder. The Euclidean algorithm efficiently calculates this by repeatedly replacing the larger number by its remainder when divided by the smaller number until the remainder is zero.</p><p id="3bf55e6f-f0fc-8072-a174-c0c36bed9dba" class="" dir="auto">The <strong>Least Common Multiple (LCM/MMC)</strong> is the smallest positive integer that is divisible by both numbers. It is calculated elegantly using the mathematical relationship: <code>LCM(a, b) = |a * b| / GCD(a, b)</code>.</p><h3 id="3bf55e6f-f0fc-80ad-bf65-c81c26738f2b" class="" dir="auto">When to Use</h3><ul id="3bf55e6f-f0fc-80e4-b9cf-d2dc13834675" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Fraction simplification:</strong> When you need to reduce fractions to their simplest form.</li></ul><ul id="3bf55e6f-f0fc-80e8-b84b-c9ae230b7674" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Repeating patterns:</strong> Determining when two cyclic events will synchronize (LCM) or finding the largest common block size to divide two lengths (GCD).</li></ul><ul id="3bf55e6f-f0fc-8006-9947-d2ecf7f10a34" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Number Theory problems:</strong> Foundational for many algorithmic challenges (like the <code>gcdOfStrings</code> problem) and cryptography.</li></ul><h3 id="3bf55e6f-f0fc-805a-9d98-df496b7700ba" class="" dir="auto">Complexity</h3><ul id="3bf55e6f-f0fc-800e-9381-f563141a3a62" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Time:</strong> O(log(min(a, b))) — The modulo operation drastically reduces the size of the numbers in each step, making the execution time logarithmic.</li></ul><ul id="3bf55e6f-f0fc-80e0-9f09-f348c59cce62" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Space:</strong> O(log(min(a, b))) — For the recursive call stack. This can be optimized to O(1) se implementado iterativamente (using a while loop).</li></ul><h3 id="3bf55e6f-f0fc-809c-8dec-c92164b93aa7" class="" dir="auto">Properties</h3><ul id="3bf55e6f-f0fc-8092-8c0d-ca3c42c4fb9d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Category:</strong> Math / Number Theory.</li></ul><ul id="3bf55e6f-f0fc-8032-a92e-e7fb08950e98" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>In-place:</strong> N/A (Math operation).</li></ul><ul id="3bf55e6f-f0fc-8025-92f8-d1deaf26a5dc" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Prerequisite:</strong> LCM depends directly on an efficient GCD implementation.</li></ul><h3 id="3bf55e6f-f0fc-80b7-a9e4-c7c89fe6da00" class="" dir="auto">Java Implementation</h3><pre id="3bf55e6f-f0fc-80bd-9c14-fdfb8b19b1e6" class="code code-wrap" data-notion-code-syntax="java"><code class="language-java" style="white-space:pre-wrap;word-break:break-all">public class MathAlgorithms {
+
+    // Greatest Common Divisor (MDC) - Euclidean Algorithm
+    public static int gcd(int a, int b) {
+        if (b == 0) {
+            return a;
+        }
+        return gcd(b, a % b);
+    }
+
+    // Least Common Multiple (MMC)
+    public static int lcm(int a, int b) {
+        // Prevent division by zero if inputs are zero
+        if (a == 0 || b == 0) {
+            return 0;
+        }
+        // Formula: (a * b) / GCD(a, b)
+        return Math.abs(a * b) / gcd(a, b);
+    }
+}</code></pre><hr id="3bf55e6f-f0fc-8049-8293-fc21c9fb3710" dir="auto"/><h1 id="3b855e6f-f0fc-806b-8609-f51a28c926e1" class="" dir="auto"><mark class="highlight-yellow" data-notion-highlight="yellow"><strong>Searching Algorithms</strong></mark></h1><h2 id="3c155e6f-f0fc-800a-b222-d461f75ac33f" class="block-color-blue" data-notion-highlight="blue" dir="auto">Binary Search</h2><figure id="3c155e6f-f0fc-80fd-9d56-f15e51849ff9" class="image" style="text-align:left" data-notion-image="DSA/a-visual-guide-to-binary-search-v0-7khf6vd42ojd1.gif" dir="ltr"><a href="DSA/a-visual-guide-to-binary-search-v0-7khf6vd42ojd1.gif"><img style="width:480px" src="DSA/a-visual-guide-to-binary-search-v0-7khf6vd42ojd1.gif"/></a></figure><h3 id="3c155e6f-f0fc-8069-94e1-dc08e4621474" class="" dir="auto">Core Concept</h3><p id="3c155e6f-f0fc-80e2-a974-f46b8e60c1a9" class="" dir="auto">Binary Search is an efficient algorithm for finding an item from a sorted list of items. It works by repeatedly dividing in half the portion of the list that could contain the item, comparing the middle element to the target value. </p><p id="3c155e6f-f0fc-8079-be1b-fc5c0ccab744" class="" dir="auto">This divide-and-conquer approach transforms an O(N) linear scan into extremely fast O(log N) lookups.</p><h3 id="3c155e6f-f0fc-80de-8060-f44137dee58c" class="" dir="auto">When to Use</h3><ul id="3c155e6f-f0fc-801a-aa5b-cc4430720eff" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Sorted arrays:</strong> The primary requirement is that the underlying dataset must be sorted.</li></ul><ul id="3c155e6f-f0fc-8075-acf4-fa6676ab6eec" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Fast lookups:</strong> When you need to quickly locate an element, especially in large datasets where O(N) is too slow.</li></ul><ul id="3c155e6f-f0fc-801a-ba3b-df4f95c4f2f4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Finding boundaries (Monotonicity):</strong> Useful for finding the first or last occurrence of an element, or finding the point where a condition changes from false to true (e.g., finding the &quot;first bad version&quot; in a system).</li></ul><ul id="3c155e6f-f0fc-80df-b6e1-d6da39f78fc0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Rotated arrays:</strong> Can be adapted to search in sorted arrays that have been shifted/rotated.</li></ul><h3 id="3c155e6f-f0fc-8098-8c96-d28735bf25e0" class="" dir="auto">Complexity</h3><ul id="3c155e6f-f0fc-80e2-ab04-e555b45597d4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Time (Search):</strong> O(log N) — The search space is reduced by half at each step.</li></ul><ul id="3c155e6f-f0fc-8025-bf8b-e071dbad5b0e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Space:</strong> O(1) — The iterative implementation uses only a few primitive pointers (<code>i</code>, <code>j</code>, <code>mid</code>), requiring constant extra space.</li></ul><h3 id="3c155e6f-f0fc-80b4-9a32-d0da958488a8" class="" dir="auto">Properties</h3><ul id="3c155e6f-f0fc-805e-83fc-e919fd0add68" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Category:</strong> Search Algorithm / Divide and Conquer.</li></ul><ul id="3c155e6f-f0fc-80d5-b831-d778e6ccf232" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>In-place:</strong> Yes (evaluates the original array without requiring copies).</li></ul><ul id="3c155e6f-f0fc-80d6-998c-de73254e7044" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Adaptable:</strong> Yes (Can be expanded for boundary finding, searching in 2D matrices, or binary search on answers/ranges).</li></ul><h3 id="3c155e6f-f0fc-805c-ad36-c3905bfb00ff" class="" dir="auto">Java Implementation</h3><pre id="3c155e6f-f0fc-80e3-9c20-d71016a441e1" class="code code-wrap" data-notion-code-syntax="java"><code class="language-java" style="white-space:pre-wrap;word-break:break-all">class Solution {
+    public int search(int[] nums, int target) {
+        int i = 0;
+        int j = nums.length - 1;
+
+        while (i &lt;= j) {
+            // Previne Integer Overflow: i + (j - i) / 2 em vez de (i + j) / 2
+            int mid = i + (j - i) / 2;
+            int midVal = nums[mid];
+
+            if (midVal == target) return mid;
+
+            if (target &gt; midVal) {
+                i = mid + 1;
+            } else {
+                j = mid - 1;
+            }
+        }
+        return -1;
+    }
+}</code></pre><hr id="3c155e6f-f0fc-8083-a5ee-cb5602ffa366" dir="auto"/><h1 id="3c155e6f-f0fc-80c5-9f04-e6c53c4fc89c" class="" dir="auto"><mark class="highlight-yellow" data-notion-highlight="yellow"><strong>Sorting Algorithms</strong></mark></h1><div id="3b455e6f-f0fc-803b-87fe-dfb934db02b8" class="column-list" data-notion-column-list="" dir="auto"><div id="3b455e6f-f0fc-803c-bb95-d8350e7d5f5c" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><h2 id="3b155e6f-f0fc-80fd-8859-f8b207c96f70" class="" dir="auto"><mark class="highlight-blue" data-notion-highlight="blue"><strong>Insertion Sort</strong></mark></h2><figure id="3b555e6f-f0fc-807b-b757-e1d65aa40c6f" class="image" data-notion-image="DSA/Sorting_insertion_sort_anim.gif" dir="ltr"><a href="DSA/Sorting_insertion_sort_anim.gif"><img style="width:336px" src="DSA/Sorting_insertion_sort_anim.gif"/></a></figure><h3 id="3b355e6f-f0fc-805c-a8d2-efbad5120bd8" class="" dir="auto">Core Concept</h3><p id="3b355e6f-f0fc-805f-b139-d31252e327f2" class="" dir="auto">The array is virtually split into a sorted and an unsorted part. Values from the unsorted part are picked one by one and placed at their correct position in the sorted part by shifting larger elements to the right.</p><h3 id="3b355e6f-f0fc-806d-a9d8-c4bccaa7969f" class="" dir="auto">When to Use</h3><ul id="3b355e6f-f0fc-80e9-890d-e8bd8a28753b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Small datasets:</strong> Minimal overhead makes it faster than complex algorithms like Quick Sort or Merge Sort for small arrays (typically fewer than 50 elements).</li></ul><ul id="3b355e6f-f0fc-8089-8d7e-e9ed333adb61" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Nearly sorted data:</strong> Its adaptive nature brings the time complexity closer to O(N).</li></ul><ul id="3b355e6f-f0fc-80fa-b1c4-ecfea3c215f8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Memory constraints:</strong> It requires no extra memory allocation, running with an O(1) space footprint.</li></ul><ul id="3b355e6f-f0fc-806f-a39c-ee4bdd170a5d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Continuous incoming data:</strong> Its online property allows it to efficiently sort a live stream of data as new elements arrive.</li></ul><h3 id="3b355e6f-f0fc-80e1-b42e-d68cbdae30e1" class="" dir="auto">Complexity</h3><ul id="3b355e6f-f0fc-80f7-91af-ff91dbc72e12" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Time (Best):</strong> O(N) — Occurs when the array is already sorted.</li></ul><ul id="3b355e6f-f0fc-8044-9ca9-c8b1e9e07055" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Time (Average/Worst):</strong> O(N^2) — Occurs when elements are in random or reverse order.</li></ul><ul id="3b355e6f-f0fc-80c9-99bf-d596cd10ec67" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Space:</strong> O(1) — Sorting is done in-place.</li></ul><h3 id="3b355e6f-f0fc-8008-978a-faa5a60050cb" class="" dir="auto">Properties</h3><ul id="3b355e6f-f0fc-8026-bfbc-d04a2a660f40" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Stable:</strong> Yes (Maintains the relative order of equal elements).</li></ul><ul id="3b355e6f-f0fc-804c-a3c5-fc153ccb712c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>In-place:</strong> Yes (Does not require additional memory allocation).</li></ul><ul id="3b355e6f-f0fc-8028-93f0-ca975ba10016" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Adaptive:</strong> Yes (Highly efficient for small data sets or nearly sorted arrays).</li></ul><ul id="3b355e6f-f0fc-805a-a276-ff6a4d881f3d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Online:</strong> Yes (Can sort a list as it receives new elements).</li></ul><h3 id="3b355e6f-f0fc-8041-a32b-f5df391c864c" class="" dir="auto">Java Implementation</h3><pre id="3b355e6f-f0fc-8015-952f-e98c91fe6445" class="code code-wrap" data-notion-code-syntax="java"><code class="language-java" style="white-space:pre-wrap;word-break:break-all">public void insertionSort(int[] arr) {
+    for (int i = 1; i &lt; arr.length; i++) {
+        int key = arr[i];
+        int j = i - 1;
+
+        // Shift elements greater than key to the right
+        while (j &gt;= 0 &amp;&amp; arr[j] &gt; key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+
+        // Insert the key into its correct position
+        arr[j + 1] = key;
+    }
+}</code></pre></div><div id="3b455e6f-f0fc-8080-8508-efdb04907758" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><h2 id="3b455e6f-f0fc-8072-9e04-c80945461a0d" class="" dir="auto"><mark class="highlight-blue" data-notion-highlight="blue">Quick Sort (Lomuto Partition Scheme)</mark></h2><div id="3b555e6f-f0fc-80ab-8ce3-e15cb89ec66e" class="column-list" data-notion-column-list="" dir="auto"><div id="3b555e6f-f0fc-80b3-8fda-c1d906307ca4" style="width:100%" class="column" data-notion-column-ratio="1" dir="auto"><figure id="3b555e6f-f0fc-80a0-bf39-fe180868e89f" class="image" data-notion-image="DSA/Sorting_quicksort_anim.gif" dir="ltr"><a href="DSA/Sorting_quicksort_anim.gif"><img style="width:336px" src="DSA/Sorting_quicksort_anim.gif"/></a></figure></div><div id="3b555e6f-f0fc-800d-82ca-fb25e0b12b07" style="width:93.75%" class="column" data-notion-column-ratio="0.9375" dir="auto"><figure id="3b555e6f-f0fc-8088-ba10-f6adbb509cde" class="image" data-notion-image="DSA/Lomuto_animated.gif" dir="ltr"><a href="DSA/Lomuto_animated.gif"><img style="width:384px" src="DSA/Lomuto_animated.gif"/></a></figure></div></div><h3 id="3b455e6f-f0fc-808f-b94f-dc422782b973" class="" dir="auto">Core Concept</h3><p id="3b455e6f-f0fc-80fc-81fa-db1f924a6965" class="" dir="auto">The array is divided into two sub-arrays around a chosen pivot element. In this specific implementation, the rightmost element is always chosen as the pivot. Elements smaller than or equal to the pivot are shifted to its left, while larger elements remain on its right. This partitioning process is recursively applied to both sub-arrays until the entire array is sorted.</p><h3 id="3b455e6f-f0fc-80ad-a93a-dec2609554fe" class="" dir="auto">When to Use</h3><ul id="3b455e6f-f0fc-80d1-8efd-c41a988991ab" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>General-purpose sorting:</strong> Excellent average-case performance for large, randomized datasets.</li></ul><ul id="3b455e6f-f0fc-8074-a45e-e8e5c89a5fdf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Memory constraints:</strong> As an in-place algorithm, it is highly memory efficient, requiring no additional array allocations.</li></ul><ul id="3b455e6f-f0fc-80a4-bea2-cf2166ca8f71" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cache performance:</strong> Its contiguous memory access patterns make it highly cache-friendly and often faster in practice than algorithms like Merge Sort for primitive types.</li></ul><h3 id="3b455e6f-f0fc-80e2-8f3b-db0d83de7776" class="" dir="auto">Complexity</h3><ul id="3b455e6f-f0fc-80c5-bb34-eef5632d4519" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Time (Best/Average):</strong> O(N log N) — Occurs when the pivot consistently divides the array into roughly equal halves.</li></ul><ul id="3b455e6f-f0fc-8030-ae75-da5d3bd53200" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Time (Worst):</strong> O(N^2) — Occurs when the array is already sorted, reverse sorted, or heavily populated with duplicate elements (due to the fixed rightmost pivot).</li></ul><ul id="3b455e6f-f0fc-8095-b855-d6e9be41eb63" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Space:</strong> O(log N) on average — Sorting is done in-place, but the recursive call stack consumes memory. In the worst-case scenario, the space complexity degrades to O(N).</li></ul><h3 id="3b455e6f-f0fc-805a-ae3a-e7f28b224da1" class="" dir="auto">Properties</h3><ul id="3b455e6f-f0fc-8019-be68-e90075799bf3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Stable:</strong> No (Swapping elements across the array disrupts the original relative order of identical elements).</li></ul><ul id="3b455e6f-f0fc-80ae-b5b3-de15bca162c7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>In-place:</strong> Yes (Does not require additional array memory allocation, only stack space for recursion).</li></ul><ul id="3b455e6f-f0fc-80f7-9ef7-df1a668edfa8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Adaptive:</strong> No (The standard Lomuto scheme does not inherently take advantage of pre-sorted data; in fact, pre-sorted data triggers its worst-case performance).</li></ul><ul id="3b455e6f-f0fc-80fd-a87e-f2e3d0adae93" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Online:</strong> No (Requires the entire dataset to be present in memory to determine partitions and pivots).</li></ul><h3 id="3b455e6f-f0fc-8026-b06d-e4ea8d840cee" class="" dir="auto">Java Implementation</h3><pre id="3b455e6f-f0fc-80a9-857b-e2060ea94b22" class="code code-wrap" data-notion-code-syntax="java"><code class="language-java" style="white-space:pre-wrap;word-break:break-all">class Solution {
+
+    static void quickSort(int[] ar) {
+        if (ar == null || ar.length == 0) return;
+        quickSort(ar, 0, ar.length - 1);
+    }
+
+    static int[] quickSort(int[] ar, int left, int right) {
+        if (left &gt;= right) return ar;
+
+        int pivot = ar[right];
+        int i = left - 1;
+
+        // Shift elements smaller than or equal to pivot to the left
+        for (int j = left; j &lt; right; j++) {
+            if (ar[j] &lt;= pivot) {
+                i++;
+                int aux = ar[j];
+                ar[j] = ar[i];
+                ar[i] = aux;
+            }
+        }
+
+        // Insert the pivot into its correct absolute position
+        i++;
+        int aux = ar[right];
+        ar[right] = ar[i];
+        ar[i] = aux;
+
+        // Recursively sort the sub-arrays
+        quickSort(ar, left, i - 1);
+        quickSort(ar, i + 1, right);
+
+        return ar;
+    }
+}</code></pre></div></div><hr id="3b955e6f-f0fc-80b1-80c4-c5abe900bdfe" dir="auto"/><h1 id="3b555e6f-f0fc-8001-a667-ce73d532f2ac" class="" dir="auto"><mark class="highlight-yellow" data-notion-highlight="yellow"><strong>Data Structure - BST</strong></mark></h1><div id="3b955e6f-f0fc-80e6-8811-e1c06dd2bc0a" class="column-list" data-notion-column-list="" dir="auto"><div id="3b955e6f-f0fc-8014-9d9c-f12571c7fb8f" style="width:100%" class="column" data-notion-column-ratio="1" dir="auto"><h2 id="3b855e6f-f0fc-8066-aa20-d19962d04db2" class="" dir="auto"><mark class="highlight-blue" data-notion-highlight="blue">Binary Search Tree (BST) Insertion</mark></h2><div id="3b955e6f-f0fc-8093-bfa6-c959ec606de9" class="column-list" data-notion-column-list="" dir="auto"><div id="3b955e6f-f0fc-80bd-b339-c2bca82b76cc" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3b855e6f-f0fc-8052-8d3a-ed06730ef808" class="image" style="text-align:left" data-notion-image="DSA/Binary-search-tree-insertion-animation.gif" dir="ltr"><a href="DSA/Binary-search-tree-insertion-animation.gif"><img style="width:384px" src="DSA/Binary-search-tree-insertion-animation.gif"/></a></figure></div><div id="3b955e6f-f0fc-802e-bcec-ca72ee139840" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3b855e6f-f0fc-800a-bd8e-ce1d04dcf16c" class="image" data-notion-image="DSA/Tree.webp" dir="ltr"><a href="DSA/Tree.webp"><img style="width:384px" src="DSA/Tree.webp"/></a></figure></div></div><h3 id="3b855e6f-f0fc-8041-9ee6-eb4e29625059" class="" dir="auto">Core Concept</h3><p id="3b855e6f-f0fc-808f-bc51-fce41afcd385" class="" dir="auto">The tree is traversed starting from the root. The new value is compared against the current node&#x27;s value to determine the path: left if smaller, right if larger. This traversal continues until an empty spot (a null reference) is found, where the new node is then placed, preserving the fundamental property of the Binary Search Tree.</p><h3 id="3b855e6f-f0fc-80a8-95a8-dee1c0f51a46" class="" dir="auto">When to Use</h3><ul id="3b855e6f-f0fc-80dc-a5c8-cf295064cd0a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Iterative Approach:</strong> Best for strict memory constraints or very deep trees. It avoids call stack overhead, completely eliminating the risk of <code>StackOverflowError</code> in highly unbalanced trees.</li></ul><ul id="3b855e6f-f0fc-80da-8776-db5d4382c810" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Recursive Approach:</strong> Ideal for clean, readable, and highly maintainable code. It is often the expected baseline in technical assessments because it mirrors the natural, inductive definition of tree data structures.</li></ul><h3 id="3b855e6f-f0fc-80ae-bf01-feeb4b54c6d8" class="" dir="auto">Complexity</h3><ul id="3b855e6f-f0fc-8013-8a4e-f3ba9cd35760" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Time (Best/Average):</strong> O(log N) - Occurs when the tree is relatively balanced, halving the search space at each step.</li></ul><ul id="3b855e6f-f0fc-80ad-9561-f5135fc721e0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Time (Worst):</strong> O(N) - Occurs when elements are inserted in a sorted or reverse-sorted order, degrading the tree into a linear linked list.</li></ul><ul id="3b855e6f-f0fc-80e9-93fb-f115b58b7b68" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Space (Iterative):</strong> O(1) - Traversal and insertion are done strictly in-place using pointers.</li></ul><ul id="3b855e6f-f0fc-8033-9e29-d4eb962b0596" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Space (Recursive):</strong> O(H) - Where H is the height of the tree, representing the memory consumed by the call stack.</li></ul><h3 id="3b855e6f-f0fc-80a2-93e7-c4ddb712728f" class="" dir="auto">Properties</h3><ul id="3b855e6f-f0fc-80a1-b65e-ce7b61deb7e3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>In-place:</strong> Yes (Only requires memory allocation for the single new node).</li></ul><ul id="3b855e6f-f0fc-8050-b65a-ece0f5f1708a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Adaptive:</strong> No (The standard insertion does not self-balance. Variations like AVL or Red-Black trees are needed for adaptability).</li></ul><ul id="3b855e6f-f0fc-808d-8362-dbc01efc9f15" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ordered:</strong> Yes (An in-order traversal of the resulting tree will yield elements in strictly ascending order).</li></ul><h3 id="3b855e6f-f0fc-80c3-9b42-cf4b88879151" class="" dir="auto">Java Implementation</h3><h4 id="3b855e6f-f0fc-8092-9237-c3cc128d73d4" class="" dir="auto">Iterative Version (O(1) Space)</h4><pre id="3b855e6f-f0fc-808a-9e75-ed21dd6f4fbd" class="code code-wrap" data-notion-code-syntax="java"><code class="language-java" style="white-space:pre-wrap;word-break:break-all">public Node insertIterative(Node root, int data) {
+    if (root == null) {
+        return new Node(data);
+    }
+
+    Node current = root;
+
+    while (true) {
+        if (data &gt; current.data) {
+            if (current.right == null) {
+                current.right = new Node(data);
+                break;
+            }
+            current = current.right;
+        } else if (data &lt; current.data) {
+            if (current.left == null) {
+                current.left = new Node(data);
+                break;
+            }
+            current = current.left;
+        } else {
+            // Duplicate handling (optional): Break or handle as needed
+            break;
+        }
+    }
+    return root;
+}</code></pre><h3 id="3b855e6f-f0fc-807e-8c18-ea06cbd4cae5" class="" dir="auto">Recursive Version (O(H) Space)</h3><pre id="3b855e6f-f0fc-8056-9cd9-fe3653beacf3" class="code code-wrap" data-notion-code-syntax="java"><code class="language-java" style="white-space:pre-wrap;word-break:break-all">public Node insertRecursive(Node root, int data) {
+    if (root == null) {
+        return new Node(data);
+    }
+
+    if (data &gt; root.data) {
+        root.right = insertRecursive(root.right, data);
+    } else if (data &lt; root.data) {
+        root.left = insertRecursive(root.left, data);
+    }
+
+    // Returns the unchanged node pointer upwards through the call stack
+    return root;
+}</code></pre></div><div id="3b955e6f-f0fc-8093-970b-cc9ae3d3f06f" style="width:100%" class="column" data-notion-column-ratio="1" dir="auto"><h2 id="3b955e6f-f0fc-808b-87a9-e0d80b6f5c0c" class="block-color-blue" data-notion-highlight="blue" dir="auto">Calculating BST Height with DFS</h2><figure id="3b955e6f-f0fc-807b-a035-e5238e4323f2" class="image" data-notion-image="DSA/1_D9Pyux6_i5_ejA0m2WqYxg.gif" dir="ltr"><a href="DSA/1_D9Pyux6_i5_ejA0m2WqYxg.gif"><img style="width:336px" src="DSA/1_D9Pyux6_i5_ejA0m2WqYxg.gif"/></a></figure><p id="3b955e6f-f0fc-8002-a14b-f3faeff656bd" class="" dir="auto"><strong>Core Concept</strong><br/>The height of a binary tree is defined as the number of edges on the longest path from the root node to a leaf. This algorithm applies a Depth-First Search (DFS) using a <strong>Post-order</strong> traversal strategy. It recursively explores both the left and right subtrees until it reaches the leaves. As the recursive calls return (backtracking), it compares the heights of the left and right subtrees, takes the maximum, and adds 1 to account for the edge connecting the current node to its deepest child. The base case (<code>root.left == null &amp;&amp; root.right == null</code>) correctly establishes that a tree with only one node (the root) has a height of 0 (counting edges, not nodes).</p><h3 id="3b955e6f-f0fc-80ba-a695-f9ade1f54a79" class="" dir="auto"><strong>When to Use</strong></h3><ul id="3b955e6f-f0fc-80aa-b789-dc803a9ae8dd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Balancing Checks:</strong> Essential for implementing and maintaining self-balancing trees (like AVL trees), where the height difference between left and right subtrees must be monitored.</li></ul><ul id="3b955e6f-f0fc-8038-936d-d6e3ff5590a5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Performance/Memory Estimation:</strong> Useful to determine the maximum call stack depth (which is strictly tied to the tree&#x27;s height) required for other recursive tree operations.</li></ul><ul id="3b955e6f-f0fc-8074-8d7e-d7e9de235d05" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Tree Metrics:</strong> Whenever you need to know the longest path or maximum depth in a hierarchical structure.</li></ul><h3 id="3b955e6f-f0fc-80ce-a13b-ecef1d438d4e" class="" dir="auto"><strong>Complexity</strong></h3><ul id="3b955e6f-f0fc-80be-8473-f60df623cc9b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Time:</strong> O(N) - Every single node in the tree must be visited exactly once to guarantee the deepest path is found.</li></ul><ul id="3b955e6f-f0fc-803a-b674-df6603f0db76" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Space (Worst):</strong> O(N) - Occurs in a completely unbalanced tree (degraded into a linear linked list), where the recursive call stack reaches N frames.</li></ul><ul id="3b955e6f-f0fc-80c5-9b39-cc2e1b75216d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Space (Average/Best):</strong> O(H) or O(log N) - In a balanced tree, the maximum depth of the recursive call stack is limited to the tree&#x27;s height (H).</li></ul><h3 id="3b955e6f-f0fc-8008-87a7-feb4680d90b5" class="" dir="auto"><strong>Properties</strong></h3><ul id="3b955e6f-f0fc-8069-a1cc-e2fc2f3f757a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Traversal Method:</strong> Post-order DFS (It requires the results from the left and right children before it can calculate the value for the parent).</li></ul><ul id="3b955e6f-f0fc-8052-99b8-c79bbd510369" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Measurement Convention:</strong> Edge-based counting (A single node equals height 0).</li></ul><h3 id="3b955e6f-f0fc-80cd-b7ef-eadbd565c1b8" class="" dir="auto">Java Implementation</h3><pre id="3b955e6f-f0fc-80e5-8a07-ed0d95f9e6fc" class="code code-wrap" data-notion-code-syntax="java"><code class="language-java" style="white-space:pre-wrap;word-break:break-all">public static int height(Node root) {
+    if (root == null || (root.left == null &amp;&amp; root.right == null)) return 0;
+
+    int l = height(root.left);
+    int r = height(root.right);
+
+    return 1 + Integer.max(l, r);
+}</code></pre></div></div><p id="3b955e6f-f0fc-8090-957a-d86a51e825cb" class="" dir="auto">
+</p><hr id="3b955e6f-f0fc-80f0-bea4-cac25592e6cd" dir="auto"/><h2 id="3b955e6f-f0fc-8014-91f3-e6fdc9854ebf" class="block-color-blue" data-notion-highlight="blue" dir="auto">Binary Tree Traversal Algorithms</h2><p id="3b955e6f-f0fc-804c-bb6a-c34c1482c156" class="" dir="auto">This document covers the fundamental traversal algorithms for Binary Trees, designed to work seamlessly with tree structures where each <code>Node</code> contains <code>left</code> and <code>right</code> pointers and a <code>data</code> value.</p><div id="3b955e6f-f0fc-8077-8a9f-d997145cf6af" class="column-list" data-notion-column-list="" dir="auto"><div id="3b955e6f-f0fc-8076-9edc-cbf3a54fa659" style="width:100%" class="column" data-notion-column-ratio="1" dir="auto"><h2 id="3b955e6f-f0fc-80ac-9124-cfb9fcbd445a" class="" dir="auto">Depth-First Search (DFS)</h2><figure id="3c055e6f-f0fc-8063-af91-e93c3916d54d" class="image" data-notion-image="DSA/0_4S4oZrK41Xo4HVxz.gif" dir="ltr"><a href="DSA/0_4S4oZrK41Xo4HVxz.gif"><img style="width:384px" src="DSA/0_4S4oZrK41Xo4HVxz.gif"/></a></figure><h3 id="3b955e6f-f0fc-80eb-bd40-d3bd2f8e0171" class="" dir="auto"><strong>Core Concept</strong></h3><p id="3c155e6f-f0fc-8014-a185-c1bb3683a4be" class="" dir="auto">DFS explores a tree by going as deep as possible along each branch before backtracking. It can be implemented in three main ways: In-order (Left, Root, Right), Pre-order (Root, Left, Right), and Post-order (Left, Right, Root).</p><h3 id="3b955e6f-f0fc-80a8-b0c6-fa3b8040b249" class="" dir="auto"><strong>When to Use</strong></h3><ul id="3b955e6f-f0fc-80d6-a5d7-d3897644c68a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>In-order:</strong> Best for retrieving elements of a Binary Search Tree (BST) in sorted (ascending) order.</li></ul><ul id="3b955e6f-f0fc-8054-bd2f-c80bc3a5b873" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Pre-order:</strong> Ideal for creating a copy/clone of the tree or serializing its structure.</li></ul><ul id="3b955e6f-f0fc-80bb-9c40-fb14d96f68be" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Post-order:</strong> Useful for safely deleting the tree (children are processed before the parent) or calculating directory sizes.</li></ul><h3 id="3b955e6f-f0fc-80a8-8fae-f6e5c277e1e7" class="" dir="auto"><strong>Complexity</strong></h3><ul id="3b955e6f-f0fc-80dc-91b1-c5f5d7e74c0f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Time (All variations):</strong> O(N) - Every node is visited exactly once.</li></ul><ul id="3b955e6f-f0fc-8064-b717-e4f2b02f53b0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Space (Worst):</strong> O(N) - Occurs in completely unbalanced trees (linear structure) due to call stack memory.</li></ul><ul id="3b955e6f-f0fc-80f9-a5f0-f11ecba6ea99" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Space (Average/Best):</strong> O(H) - Where H is the tree height, typically O(log N) for balanced trees.</li></ul><h3 id="3b955e6f-f0fc-8042-aee8-ca65875d7909" class="" dir="auto"><strong>Properties</strong></h3><ul id="3b955e6f-f0fc-80fd-92d5-c49f67110599" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Memory-efficient for deep, narrow trees:</strong> Yes (Compared to BFS).</li></ul><ul id="3b955e6f-f0fc-807e-94b2-e57c296f93f8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Implementation:</strong> Typically recursive, mirroring the natural inductive definition of trees.</li></ul><h3 id="3b955e6f-f0fc-80ee-9d6b-e4fa58485854" class="" dir="auto">Java Implementation (In-order)</h3><pre id="3b955e6f-f0fc-802a-b5ce-fb9c0a9e9603" class="code code-wrap" data-notion-code-syntax="java"><code class="language-java" style="white-space:pre-wrap;word-break:break-all">public void traverseInOrder(Node root) {
+    if (root == null) {
+        return;
+    }
+
+    traverseInOrder(root.left);
+    System.out.print(root.data + &quot; &quot;);
+    traverseInOrder(root.right);
+}</code></pre></div><div id="3b955e6f-f0fc-800e-9354-c2f1bb311646" style="width:100%" class="column" data-notion-column-ratio="1" dir="auto"><h2 id="3b955e6f-f0fc-80af-adda-f0cb7023d7f8" class="" dir="auto">Breadth-First Search (BFS)</h2><figure id="3c055e6f-f0fc-8074-b6d5-f15f5236e7de" class="image" data-notion-image="DSA/0_HN6Tr71sgf1qR70n.gif" dir="ltr"><a href="DSA/0_HN6Tr71sgf1qR70n.gif"><img style="width:528px" src="DSA/0_HN6Tr71sgf1qR70n.gif"/></a></figure><h3 id="3b955e6f-f0fc-8049-839b-c5ea4892148f" class="" dir="auto"><strong>Core Concept</strong></h3><p id="3c155e6f-f0fc-804c-a83f-c37cd891ceaa" class="" dir="auto">BFS explores the tree level by level, starting from the root and moving horizontally left-to-right across each depth level before moving down to the next level.</p><h3 id="3b955e6f-f0fc-8076-8c84-ffa1d7c8bb23" class="" dir="auto"><strong>When to Use</strong></h3><ul id="3b955e6f-f0fc-80a0-81d4-da12c2dce595" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Shortest Path:</strong> Ideal for finding the shortest path between the root and a target node in unweighted graphs or trees.</li></ul><ul id="3b955e6f-f0fc-80e7-bf9e-d25cd4a77aa2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Level Processing:</strong> Useful when you need to process nodes in relation to their depth.</li></ul><h3 id="3b955e6f-f0fc-8095-a9bc-c10de7376491" class="" dir="auto"><strong>Complexity</strong></h3><ul id="3b955e6f-f0fc-80b3-988f-efaf22da0e32" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Time:</strong> O(N) - Every node is visited exactly once.</li></ul><ul id="3b955e6f-f0fc-8058-b1fb-d18246cf7167" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Space (Worst):</strong> O(N) - Occurs in a perfectly balanced tree where the bottom level holds roughly N/2 nodes, requiring proportional queue size.</li></ul><ul id="3b955e6f-f0fc-80f8-82be-dcae6ca902a9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Space (Best):</strong> O(1) - Occurs in completely unbalanced (linear) trees where the maximum width is 1.</li></ul><h3 id="3b955e6f-f0fc-8041-accd-fd73c79df559" class="" dir="auto"><strong>Properties</strong></h3><ul id="3b955e6f-f0fc-80c2-851d-cd22625b75bd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Memory-efficient for wide trees:</strong> No (Requires storing entire levels simultaneously).</li></ul><ul id="3b955e6f-f0fc-8096-9a86-e2be4f28c3f8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Implementation:</strong> Iterative, utilizing a First-In-First-Out (FIFO) queue data structure.</li></ul><h3 id="3b955e6f-f0fc-80a3-a1f7-d7c27798aae6" class="" dir="auto">Java Implementation (Queue-based)</h3><pre id="3b955e6f-f0fc-80eb-9587-e6147e7774b5" class="code code-wrap" data-notion-code-syntax="java"><code class="language-java" style="white-space:pre-wrap;word-break:break-all">import java.util.LinkedList;
+import java.util.Queue;
+
+public void traverseLevelOrder(Node root) {
+    if (root == null) {
+        return;
+    }
+
+    Queue&lt;Node&gt; queue = new LinkedList&lt;&gt;();
+    queue.add(root);
+
+    while (!queue.isEmpty()) {
+        Node current = queue.poll();
+        System.out.print(current.data + &quot; &quot;);
+
+        if (current.left != null) {
+            queue.add(current.left);
+        }
+        if (current.right != null) {
+            queue.add(current.right);
+        }
+    }
+}</code></pre></div></div><hr id="3b855e6f-f0fc-80ef-900f-d05506046fc8" dir="auto"/><h1 id="3ba55e6f-f0fc-80d3-a314-c3986e771bbd" class="" dir="auto"><mark class="highlight-orange" data-notion-highlight="orange"><strong>Data Structure - Heap</strong></mark></h1><h2 id="3ba55e6f-f0fc-80b0-8f8e-e6fc9b53f7ba" class="" dir="auto"><mark class="highlight-blue" data-notion-highlight="blue">Binary Heap</mark></h2><div id="3ba55e6f-f0fc-8008-95c1-fc142a2bbe2a" class="column-list" data-notion-column-list="" dir="auto"><div id="3ba55e6f-f0fc-80c4-a1f6-f7edfe7390ad" style="width:31.25%" class="column" data-notion-column-ratio="0.3125" dir="auto"><figure id="3ba55e6f-f0fc-80db-93bf-cd584001ef37" class="image" data-notion-image="DSA/1_jeELUYrAVbZJg6S1E2ujjA.gif" dir="ltr"><a href="DSA/1_jeELUYrAVbZJg6S1E2ujjA.gif"><img style="width:720px" src="DSA/1_jeELUYrAVbZJg6S1E2ujjA.gif"/></a></figure><p id="3ba55e6f-f0fc-809e-9262-c42a36ad79e8" class="" dir="auto">
+</p></div><div id="3ba55e6f-f0fc-8099-970a-dea9426608de" style="width:68.75%" class="column" data-notion-column-ratio="0.6875" dir="auto"><figure id="3ba55e6f-f0fc-80ea-aa2d-da3670a86886" class="image" data-notion-image="DSA/1_j6SmjQvS1-FPcONVtEkN1w.gif" dir="ltr"><a href="DSA/1_j6SmjQvS1-FPcONVtEkN1w.gif"><img style="width:528px" src="DSA/1_j6SmjQvS1-FPcONVtEkN1w.gif"/></a></figure></div></div><h3 id="3ba55e6f-f0fc-8078-8e5b-f4d0014defa7" class="" dir="auto">Core Concept</h3><p id="3ba55e6f-f0fc-8005-836e-f5005ba110c7" class="" dir="auto">A Heap is a specialized tree-based data structure that satisfies the heap property. In a Max-Heap, for any given node C, if P is a parent node of C, then the key (the value) of P is greater than or equal to the key of C. In a Min-Heap, the key of P is less than or equal to the key of C. The tree is completely filled on all levels except possibly for the lowest, which is filled from left to right, making it a complete binary tree. This structure allows it to be efficiently represented as a flat array.</p><h3 id="3ba55e6f-f0fc-803e-a9a7-dec276957cc8" class="" dir="auto">When to Use</h3><ul id="3ba55e6f-f0fc-8024-8638-c3e4698ecbe4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Priority Queues:</strong> Ideal for implementing priority queues where you continuously need to insert elements and extract the element with the highest or lowest priority.</li></ul><ul id="3ba55e6f-f0fc-809d-a885-f59640207b1c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Graph Algorithms:</strong> Essential for optimizing algorithms like Dijkstra&#x27;s Shortest Path or Prim&#x27;s Minimum Spanning Tree, which require frequent access to the minimum edge weight.</li></ul><ul id="3ba55e6f-f0fc-8076-8da1-fd6b0b516e6c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Finding K-th Extremes:</strong> Best approach for efficiently finding the K-th largest or smallest element in a stream of data or a large array without sorting the entire dataset.</li></ul><ul id="3ba55e6f-f0fc-80fe-94f2-cc433b085ac7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Heap Sort:</strong> Useful when an in-place sorting algorithm with a guaranteed O(N log N) worst-case time complexity is required.</li></ul><h3 id="3ba55e6f-f0fc-80a7-aec7-f93eddde4824" class="" dir="auto">Complexity</h3><ul id="3ba55e6f-f0fc-8099-8e9e-e58a743df4eb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Time (Insertion):</strong> O(log N) - The new element is added at the end of the tree and &quot;bubbled up&quot; to its correct position to restore the heap property.</li></ul><ul id="3ba55e6f-f0fc-805e-933f-f5e84c921cf6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Time (Extract Min/Max):</strong> O(log N) - The root is removed, replaced by the last element, and then &quot;bubbled down&quot; to restore the heap property.</li></ul><ul id="3ba55e6f-f0fc-80a7-9760-fd90c6e1e2af" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Time (Peek):</strong> O(1) - The minimum (or maximum) element is always immediately accessible at the root of the tree (array index 0).</li></ul><ul id="3ba55e6f-f0fc-80db-ac4a-f8a9ebfc4615" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Time (Build Heap):</strong> O(N) - Building a heap from an unsorted array using the optimal bottom-up heapify approach (Floyd&#x27;s algorithm).</li></ul><ul id="3ba55e6f-f0fc-80b5-94c4-c76c23c64fb7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Space (Standard):</strong> O(N) - The memory required to store the N elements within the array representation.</li></ul><h3 id="3ba55e6f-f0fc-802a-86ae-c53d35874bf8" class="" dir="auto">Properties</h3><ul id="3ba55e6f-f0fc-80c7-9ff7-ca2177731c7f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Shape Property:</strong> Yes (It strictly maintains a complete binary tree structure, ensuring optimal height of O(log N)).</li></ul><ul id="3ba55e6f-f0fc-8000-b077-e9801a630586" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Heap Property:</strong> Yes (Strict enforcement of parent-child value relationships depending on whether it is a Min-Heap or Max-Heap).</li></ul><ul id="3ba55e6f-f0fc-8071-8a96-cf82db4a01eb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ordered:</strong> No (Unlike a Binary Search Tree, left and right siblings have no specific order relative to each other).</li></ul><ul id="3ba55e6f-f0fc-806c-8479-cc789b698f71" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>In-place Representation:</strong> Yes (Because it is a complete binary tree, it is typically implemented using a 1D array without needing pointers for left/right children).</li></ul><h3 id="3ba55e6f-f0fc-80d3-bec7-f6922f42bd31" class="" dir="auto">Java Implementation</h3><h4 id="3ba55e6f-f0fc-8064-bda3-c0099531c145" class="" dir="auto"><strong>1. Built-in Min/Max-Heap (using </strong><code><strong>java.util.PriorityQueue</strong></code><strong>)</strong></h4><p id="3ba55e6f-f0fc-8082-b543-dec7c80dc506" class="" dir="auto">The most practical way to use a Heap in Java in a day-to-day scenario is through the standard library. By default, <code>PriorityQueue</code> implements a Min-Heap.</p><pre id="3ba55e6f-f0fc-80ab-ae5f-d3e6f8ccf691" class="code code-wrap" data-notion-code-syntax="java"><code class="language-java" style="white-space:pre-wrap;word-break:break-all">import java.util.PriorityQueue;
+import java.util.Collections;
+
+public class HeapExample {
+    public static void main(String[] args) {
+        // Min-Heap (Default)
+        PriorityQueue&lt;Integer&gt; minHeap = new PriorityQueue&lt;&gt;();
+        minHeap.add(10);
+        minHeap.add(5);
+        minHeap.add(20);
+
+        System.out.println(&quot;Min-Heap Peek: &quot; + minHeap.peek()); // 5
+        System.out.println(&quot;Min-Heap Poll: &quot; + minHeap.poll()); // 5 (removes 5)
+
+        // Max-Heap (Using a custom comparator)
+        PriorityQueue&lt;Integer&gt; maxHeap = new PriorityQueue&lt;&gt;(Collections.reverseOrder());
+        maxHeap.add(10);
+        maxHeap.add(5);
+        maxHeap.add(20);
+
+        System.out.println(&quot;Max-Heap Peek: &quot; + maxHeap.peek()); // 20
+        System.out.println(&quot;Max-Heap Poll: &quot; + maxHeap.poll()); // 20 (removes 20)
+    }
+}</code></pre><h4 id="3ba55e6f-f0fc-80d0-8280-caf7e149f7fa" class="" dir="auto"><strong>2. Manual Min-Heap (Array Representation)</strong></h4><p id="3ba55e6f-f0fc-8036-b018-d8bef193e308" class="" dir="auto">For educational purposes, this is how a Min-Heap is mathematically mapped to a flat array under the hood.</p><pre id="3ba55e6f-f0fc-800f-a40b-d261731a3dcb" class="code code-wrap" data-notion-code-syntax="java"><code class="language-java" style="white-space:pre-wrap;word-break:break-all">import java.util.Arrays;
+
+public class MinHeap {
+    private int[] heap;
+    private int size;
+    private int capacity;
+
+    public MinHeap(int capacity) {
+        this.capacity = capacity;
+        this.size = 0;
+        this.heap = new int[capacity];
+    }
+
+    private int parent(int i) { return (i - 1) / 2; }
+    private int leftChild(int i) { return 2 * i + 1; }
+    private int rightChild(int i) { return 2 * i + 2; }
+
+    private void swap(int i, int j) {
+        int temp = heap[i];
+        heap[i] = heap[j];
+        heap[j] = temp;
+    }
+
+    public void insert(int key) {
+        if (size == capacity) {
+            heap = Arrays.copyOf(heap, capacity * 2);
+            capacity *= 2;
+        }
+        int i = size;
+        heap[size++] = key;
+
+        // Heapify Up (siftUp)
+        while (i != 0 &amp;&amp; heap[parent(i)] &gt; heap[i]) {
+            swap(i, parent(i));
+            i = parent(i);
+        }
+    }
+
+    public int extractMin() {
+        if (size &lt;= 0) return Integer.MAX_VALUE;
+        if (size == 1) return heap[--size];
+
+        int root = heap[0];
+        heap[0] = heap[--size];
+        minHeapify(0);
+
+        return root;
+    }
+
+    // Heapify Down (siftDown)
+    private void minHeapify(int i) {
+        int left = leftChild(i);
+        int right = rightChild(i);
+        int smallest = i;
+
+        if (left &lt; size &amp;&amp; heap[left] &lt; heap[smallest]) smallest = left;
+        if (right &lt; size &amp;&amp; heap[right] &lt; heap[smallest]) smallest = right;
+
+        if (smallest != i) {
+            swap(i, smallest);
+            minHeapify(smallest);
+        }
+    }
+}</code></pre><hr id="3ba55e6f-f0fc-8011-af5a-c9505d6421e6" dir="auto"/><h1 id="3cb55e6f-f0fc-805f-9eed-fa2855928943" class="block-color-orange" data-notion-highlight="orange" dir="auto">Data Struture - Trie</h1><figure id="3cb55e6f-f0fc-804f-8bab-ec3a4e066f41" class="image" style="text-align:left" data-notion-image="DSA/trie_example.png" dir="ltr"><a href="DSA/trie_example.png"><img style="width:576px" src="DSA/trie_example.png"/></a></figure><h3 id="3cb55e6f-f0fc-8058-b6d3-c8013c81f3e8" class="" dir="auto">Core Concept</h3><p id="3cb55e6f-f0fc-8012-8154-e5fa3113645a" class="" dir="auto">The Trie (Prefix Tree) is traversed starting from the root. For string operations, each character of the string dictates the path to the next child node. If a child node for a specific character does not exist, a new node is instantiated. This traversal continues character by character until the entire string is processed. Once the final character is placed, that specific node is marked with a boolean flag to signify the end of a valid word, preserving the overlapping prefixes of all inserted strings.</p><h3 id="3cb55e6f-f0fc-8054-a982-ea17060417d8" class="" dir="auto">When to Use</h3><p id="3cb55e6f-f0fc-80bd-8cd0-c55fde37b5dc" class="" dir="auto"><strong>Prefix Matching:</strong> Best for autocomplete features, search typeahead, or finding all IP routing prefixes. It natively supports finding strings that share a common stem.<br/><strong>Dictionary Validation:</strong> Ideal for spell checkers and word games (e.g., Boggle, Word Search) where fast prefix validation is needed to prune invalid search paths during DFS/Backtracking.<br/><strong>Deterministic Search:</strong> Use when you must avoid the unpredictable <span data-notion-inline-equation="O(N)" class="notion-text-equation-token" contenteditable="false"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span></span></span></span> worst-case time complexity of Hash Tables caused by hash collisions. In a Trie, the worst-case search time is guaranteed.</p><h3 id="3cb55e6f-f0fc-80d8-9df6-ff54df13de97" class="" dir="auto">Complexity</h3><p id="3cb55e6f-f0fc-8082-ac21-dfb7f16ef1fd" class="" dir="auto"><strong>Time (Insert / Search / StartsWith):</strong> <span data-notion-inline-equation="O(L)" class="notion-text-equation-token" contenteditable="false"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mclose">)</span></span></span></span></span> - Where <span data-notion-inline-equation="L" class="notion-text-equation-token" contenteditable="false"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">L</span></span></span></span></span> is the length of the string. The time is strictly bounded by the word length, halving the search space character by character, regardless of how many total words are in the Trie.<br/><strong>Space (Overall Structure):</strong> <span data-notion-inline-equation="O(N \times L \times K)" class="notion-text-equation-token" contenteditable="false"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mclose">)</span></span></span></span></span> - Where <span data-notion-inline-equation="N" class="notion-text-equation-token" contenteditable="false"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span></span> is the number of words, <span data-notion-inline-equation="L" class="notion-text-equation-token" contenteditable="false"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">L</span></span></span></span></span> is the average length, and <span data-notion-inline-equation="K" class="notion-text-equation-token" contenteditable="false"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span></span></span></span></span> is the alphabet size (e.g., 26).<br/><strong>Space (Operations):</strong> <span data-notion-inline-equation="O(1)" class="notion-text-equation-token" contenteditable="false"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span> - Iterative traversal for insertion and searching is done strictly in-place using pointers.</p><h3 id="3cb55e6f-f0fc-80b9-922b-d54fbc2e62f5" class="" dir="auto">Properties</h3><p id="3cb55e6f-f0fc-8001-ac8b-efbf79847b1f" class="" dir="auto"><strong>In-place:</strong> No (Requires memory allocation for new nodes corresponding to characters not already present in the path).<br/><strong>Adaptive:</strong> No (Standard Tries do not compress paths. Variations like Radix Trees or Patricia Tries are needed for memory adaptability and compression).<br/><strong>Ordered:</strong> Yes (A pre-order traversal of the Trie will yield the stored strings in strict lexicographical/alphabetical order).</p><h3 id="3cb55e6f-f0fc-807e-8875-e393b49f1cae" class="" dir="auto">Java Standard Library Equivalent (java.util)</h3><p id="3cb55e6f-f0fc-8026-90a6-c63265dfc853" class="" dir="auto">Java <strong>does not</strong> provide a built-in <code>Trie</code> class in the <code>java.util</code> package. If you must use standard <code>java.util</code> collections for prefix-based operations, the closest alternatives are:</p><ul id="3cb55e6f-f0fc-80cc-8261-c62456e0f9b0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>java.util.TreeSet&lt;String&gt;</strong></code><strong> / </strong><code><strong>java.util.TreeMap</strong></code><strong>:</strong> Backed by a Red-Black Tree. You can use methods like <code>subSet(prefix, prefix + Character.MAX_VALUE)</code> or <code>ceiling()</code> to find words starting with a specific prefix.<ul id="3cb55e6f-f0fc-803f-a8b1-e791f145545a" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><em>Trade-off:</em> Search complexity degrades to <span data-notion-inline-equation="O(L \log N)" class="notion-text-equation-token" contenteditable="false"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span></span></span></span> instead of <span data-notion-inline-equation="O(L)" class="notion-text-equation-token" contenteditable="false"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mclose">)</span></span></span></span></span>.</li></ul></li></ul><ul id="3cb55e6f-f0fc-8024-bac0-efdf3d34d0bc" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>java.util.HashSet&lt;String&gt;</strong></code><strong>:</strong> Used for exact match lookups in <span data-notion-inline-equation="O(1)" class="notion-text-equation-token" contenteditable="false"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span> time, but it cannot perform prefix searches (<code>startsWith</code>).</li></ul><h3 id="3cb55e6f-f0fc-80a2-81b7-f20acd111eb8" class="" dir="auto">Java Implementation</h3><p id="3cb55e6f-f0fc-8040-93d1-cc0769e67a87" class="" dir="auto"><strong>Iterative Version (</strong><span data-notion-inline-equation="O(1)" class="notion-text-equation-token" contenteditable="false"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span><strong> Space for Operations)</strong></p><pre id="3cb55e6f-f0fc-806e-9e21-faeea6107c92" class="code code-wrap" data-notion-code-syntax="java"><code class="language-java" style="white-space:pre-wrap;word-break:break-all">class TrieNode {
+    TrieNode[] children;
+    boolean isEndOfWord;
+
+    public TrieNode() {
+        // Assuming lowercase English letters only
+        children = new TrieNode[26];
+        isEndOfWord = false;
+    }
+}
+
+class Trie {
+    private TrieNode root;
+
+    public Trie() {
+        root = new TrieNode();
+    }
+
+    public void insert(String word) {
+        TrieNode current = root;
+
+        for (int i = 0; i &lt; word.length(); i++) {
+            char ch = word.charAt(i);
+            int index = ch - &#x27;a&#x27;;
+
+            if (current.children[index] == null) {
+                current.children[index] = new TrieNode();
+            }
+            current = current.children[index];
+        }
+        // Mark the end of the newly inserted word
+        current.isEndOfWord = true;
+    }
+
+    public boolean search(String word) {
+        TrieNode current = root;
+
+        for (int i = 0; i &lt; word.length(); i++) {
+            char ch = word.charAt(i);
+            int index = ch - &#x27;a&#x27;;
+
+            if (current.children[index] == null) {
+                return false;
+            }
+            current = current.children[index];
+        }
+        return current.isEndOfWord;
+    }
+
+    public boolean startsWith(String prefix) {
+        TrieNode current = root;
+
+        for (int i = 0; i &lt; prefix.length(); i++) {
+            char ch = prefix.charAt(i);
+            int index = ch - &#x27;a&#x27;;
+
+            if (current.children[index] == null) {
+                return false;
+            }
+            current = current.children[index];
+        }
+        return true;
+    }
+}</code></pre><hr id="3cb55e6f-f0fc-8015-974d-e1cd855335be" dir="auto"/><h1 id="3c255e6f-f0fc-80e9-9321-f93c4708f5d5" class="block-color-orange" data-notion-highlight="orange" dir="auto">Data Structure - Cache</h1><h2 id="3c255e6f-f0fc-80ec-958a-f213f9817165" class="block-color-blue" data-notion-highlight="blue" dir="auto">LRU Cache</h2><figure id="3c255e6f-f0fc-80b5-8463-c5b1cb032e59" class="image" style="text-align:left" data-notion-image="DSA/lru.png" dir="ltr"><a href="DSA/lru.png"><img style="width:633.9931030273438px" src="DSA/lru.png"/></a></figure><h3 id="3c255e6f-f0fc-808b-95ac-d9bc6a3bdace" class="" dir="auto">Core Concept</h3><p id="3c255e6f-f0fc-805d-a0ee-d941e71f5926" class="" dir="auto">The Least Recently Used (LRU) Cache is a data structure that stores a limited number of items. When the cache reaches its capacity, it evicts the least recently accessed item before inserting a new one. It is typically implemented using a combination of a Hash Map (for O(1) lookups) and a Doubly Linked List (for O(1) insertions, deletions, and updates to the order of elements).</p><h3 id="3c255e6f-f0fc-80ae-b948-f3d2f9133ae2" class="" dir="auto">When to Use</h3><ul id="3c255e6f-f0fc-80b5-8b95-d4a5e47c03dd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Caching mechanisms:</strong> When you need fast data retrieval for frequently accessed items but have limited memory (e.g., application-level caching, database query caching).</li></ul><ul id="3c255e6f-f0fc-8043-934a-c91c9a554f6d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Memory management:</strong> Useful for page replacement algorithms in operating systems.</li></ul><ul id="3c255e6f-f0fc-8064-bb38-e3b26c573160" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Web browsers:</strong> Used to store recently visited pages or downloaded assets for fast retrieval.</li></ul><h3 id="3c255e6f-f0fc-808b-97ee-fe98aebcf6f4" class="" dir="auto">Complexity</h3><ul id="3c255e6f-f0fc-80be-93a5-d320b81e6934" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Time (Get):</strong> O(1) — The Hash Map provides constant-time access directly to the node in the Doubly Linked List.</li></ul><ul id="3c255e6f-f0fc-8092-a288-e34db98d66f2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Time (Put):</strong> O(1) — Adding a new node or moving an existing node to the front of the list takes constant time, as does updating the Hash Map.</li></ul><ul id="3c255e6f-f0fc-8033-96aa-cd2c4411d49b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Space:</strong> O(capacity) — Both the Hash Map and the Doubly Linked List store up to <code>capacity</code> elements.</li></ul><h3 id="3c255e6f-f0fc-8058-97ca-e8ef0c6f91df" class="" dir="auto">Properties</h3><ul id="3c255e6f-f0fc-801b-a25e-dab8391b7523" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Eviction Policy:</strong> Least Recently Used (Discards the oldest untouched item first).</li></ul><ul id="3c255e6f-f0fc-805f-9738-ee637a057218" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Capacity Limit:</strong> Yes (Maintains a strict maximum size constraint).</li></ul><ul id="3c255e6f-f0fc-805d-a23f-cf4f1250c3c8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Composite Structure:</strong> Requires both a Hash Map and a Doubly Linked List to achieve O(1) performance for all core operations.</li></ul><h3 id="3c255e6f-f0fc-80d5-9586-c9f091ab36db" class="" dir="auto">Java Implementation</h3><pre id="3c255e6f-f0fc-80a0-95e1-f1efe718ebf4" class="code code-wrap" data-notion-code-syntax="java"><code class="language-java" style="white-space:pre-wrap;word-break:break-all">import java.util.HashMap;
+import java.util.Map;
+
+class LRUCache {
+
+    class Node {
+        int key;
+        int value;
+        Node prev;
+        Node next;
+
+        public Node(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+
+    private final int capacity;
+    private final Map&lt;Integer, Node&gt; cache;
+    private final Node head;
+    private final Node tail;
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        this.cache = new HashMap&lt;&gt;();
+
+        // Dummy head and tail to avoid null-check edge cases during node manipulation
+        this.head = new Node(-1, -1);
+        this.tail = new Node(-1, -1);
+        this.head.next = this.tail;
+        this.tail.prev = this.head;
+    }
+
+    public int get(int key) {
+        if (!cache.containsKey(key)) {
+            return -1;
+        }
+
+        Node node = cache.get(key);
+        removeNode(node);
+        moveToHead(node);
+
+        return node.value;
+    }
+
+    public void put(int key, int value) {
+        if (cache.containsKey(key)) {
+            Node node = cache.get(key);
+            node.value = value;
+            removeNode(node);
+            moveToHead(node);
+        } else {
+            if (cache.size() &gt;= capacity) {
+                Node lru = tail.prev;
+                cache.remove(lru.key);
+                removeNode(lru);
+            }
+
+            Node newNode = new Node(key, value);
+            cache.put(key, newNode);
+            moveToHead(newNode);
+        }
+    }
+
+    // Helper method to remove a node from the doubly linked list
+    private void removeNode(Node node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+
+    // Helper method to insert a node right after the dummy head
+    private void moveToHead(Node node) {
+        node.next = head.next;
+        node.prev = head;
+        head.next.prev = node;
+        head.next = node;
+    }
+}</code></pre><hr id="3c255e6f-f0fc-8007-ba50-c623feb365a0" dir="auto"/><p id="3c255e6f-f0fc-8008-9d70-d28148846b9c" class="" dir="auto">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
